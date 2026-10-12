@@ -40,6 +40,7 @@
   --radius-input: 8px;
 
   /* spacing uses Tailwind's 4px scale; stay on 8px multiples: 2,4,6,8,12,16,18,28 → 8,16,24,32,48,64,72,112 */
+  --spacing: 4px;                   /* pinned to px: the root font is 17px, so the default 0.25rem would drift */
 }
 
 html { background: var(--bg); color: var(--ink-2); font: 400 17px/1.6 var(--font-body); -webkit-font-smoothing: antialiased; }

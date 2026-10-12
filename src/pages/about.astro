@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+<Base
+  title="About — iLexicon"
+  description="A team of senior developers, consultants and specialists. Process experts first: we analyze, automate, build and augment. Since 2016."
+  current="about"
+>
+  <PageHeader eyebrow="About" title="A team of specialists, ten years in.">
+    iLexicon was founded in 2016 to deliver software and IT projects for US businesses with senior people, clear scope and no layers between you and the engineers doing the work.
+  </PageHeader>
+
+  <div class="container-site pb-18 md:pb-28">
+    <div class="about-body max-w-[65ch]">
+      <section aria-labelledby="who-heading" data-reveal>
+        <Eyebrow>01</Eyebrow>
+        <h2 id="who-heading" class="h2">Who we are</h2>
+        <p class="mt-6 text-ink-2">
+          We’re a team of IT development engineers, consultants and specialists — developers, SAP and ERP consultants, database and cloud architects, data and QA engineers — who have spent years delivering for businesses in e-commerce, professional services, distribution, publishing and corporate back-office operations.
+        </p>
+        <p class="mt-4 text-ink-2">
+          We are process experts first. Before we automate or rebuild anything, we analyze how the work actually flows, where the hours and errors go, and what the business needs the system to do. Then we build the smallest thing that fixes it.
+        </p>
+      </section>
+
+      <section aria-labelledby="what-heading" data-reveal>
+        <Eyebrow>02</Eyebrow>
+        <h2 id="what-heading" class="h2">What we do for you</h2>
+        <ul class="dot-list mt-6">
+          <li><strong class="font-medium text-ink">Analyze and improve your process.</strong> We map the workflow, find the repetitive and error-prone steps, and recommend what to automate, what to integrate and what to leave alone.</li>
+          <li><strong class="font-medium text-ink">Build and integrate software.</strong> Custom web applications, portals, internal tools, data pipelines and the integrations between the systems you already own.</li>
+          <li><strong class="font-medium text-ink">Automate with AI where it earns its place.</strong> Document pipelines, inbox triage, approval routing and assistants over your own data — one process at a time, measured on hours saved.</li>
+          <li><strong class="font-medium text-ink">Augment your team.</strong> Strong, experienced resources — individual specialists or a managed group — who join your team on contract and work to your standards, your tools and your priorities.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="how-heading" data-reveal>
+        <Eyebrow>03</Eyebrow>
+        <h2 id="how-heading" class="h2">How an engagement runs</h2>
+        <ol class="steps mt-6">
+          <li><span class="step-num" aria-hidden="true">1</span><p><strong class="font-medium text-ink">Tell us what you need.</strong> Send a note through the contact page. We reply within two business days with questions and an honest first read.</p></li>
+          <li><span class="step-num" aria-hidden="true">2</span><p><strong class="font-medium text-ink">Discovery.</strong> A short engagement — usually one to two weeks — ending in a written scope, an estimate with assumptions spelled out, and an architecture note you can take elsewhere. For team augmentation, this is where we agree roles and propose named people.</p></li>
+          <li><span class="step-num" aria-hidden="true">3</span><p><strong class="font-medium text-ink">Delivery.</strong> Fixed scope, monthly team, or people embedded in yours. Weekly demos or reporting, one point of contact, your repositories and tools from the first day.</p></li>
+          <li><span class="step-num" aria-hidden="true">4</span><p><strong class="font-medium text-ink">After.</strong> Maintenance on a light retainer, an ongoing team, or a clean handover to your own people. All three are normal.</p></li>
+        </ol>
+      </section>
+    </div>
+  </div>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .about-body {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+  @media (min-width: 48rem) {
+    .about-body {
+      gap: 72px;
+    }
+  }
+  .dot-list {
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .dot-list li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--ink-2);
+  }
+  .dot-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .steps {
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .steps li {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+  }
+  .steps li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .steps p {
+    margin: 0;
+    color: var(--ink-2);
+  }
+  .step-num {
+    font: 600 22px/28px var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--accent);
+  }
+</style>

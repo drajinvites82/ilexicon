@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import NotFoundLinks from '../components/NotFoundLinks.astro';
+---
+<Base title="Page not found — iLexicon" noindex>
+  <section aria-labelledby="nf-heading" class="container-site pt-14 pb-18 md:pt-28 md:pb-40">
+    <div class="grid gap-6 md:grid-cols-12">
+      <div class="md:col-span-8">
+        <Eyebrow>404 · Page not found</Eyebrow>
+        <h1 id="nf-heading" class="h1 max-w-[16em]">This page didn’t make the move.</h1>
+        <p class="lede mt-6">
+          We rebuilt ilexicon.com in 2026 and retired a lot of old pages. What you were looking for is most likely on one of these:
+        </p>
+        <div class="mt-10">
+          <NotFoundLinks />
+        </div>
+        <Button variant="primary" href="/" class="mt-2 w-full md:w-auto">Go to the home page</Button>
+      </div>
+      <div class="hidden md:col-span-4 md:flex md:justify-end md:self-end">
+        <HeroVisual variant="motif" class="max-w-[280px]" />
+      </div>
+    </div>
+  </section>
+</Base>

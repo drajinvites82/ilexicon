@@ -1,0 +1,65 @@
+---
+/** 404 link list (spec §8.3): label, description and an accent arrow per row. */
+const links = [
+  { label: 'Services', description: 'What we do and how we work', href: '/services' },
+  { label: 'Careers', description: 'Open positions', href: '/careers' },
+  { label: 'About', description: 'Who we are and how we work', href: '/about' },
+  { label: 'Contact', description: 'Send us a note', href: '/contact' },
+];
+---
+<ul class="nf-links">
+  {links.map((l) => (
+    <li>
+      <a href={l.href}>
+        <span class="label">{l.label}</span>
+        <span class="desc">{l.description}</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .nf-links {
+    max-width: 640px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  .nf-links a {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 16px;
+    align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+  }
+  .label {
+    font: 500 17px/24px var(--font-body);
+    color: var(--ink);
+    transition: color 150ms ease-out;
+  }
+  .nf-links a:hover .label {
+    color: var(--accent);
+  }
+  .desc {
+    color: var(--ink-2);
+  }
+  .arrow {
+    color: var(--accent);
+  }
+  @media (max-width: 767.98px) {
+    .nf-links a {
+      grid-template-columns: 1fr auto;
+    }
+    .desc {
+      grid-column: 1;
+    }
+    .arrow {
+      grid-row: 1;
+      grid-column: 2;
+    }
+  }
+</style>

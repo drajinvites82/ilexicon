@@ -1,0 +1,189 @@
+---
+/**
+ * Contact form card (spec §8.2). Posts to Formspree via fetch in scripts/contact.ts; without JS the
+ * form submits natively to the same endpoint. Honeypot field "website" must stay empty.
+ */
+import Button from './Button.astro';
+import { site } from '../content/site';
+const endpoint = `https://formspree.io/f/${site.formspreeId}`;
+const options = ['AI & automation', 'Custom development', 'Data & integration', 'Team augmentation', 'Not sure yet'];
+---
+<div class="form-card">
+  <h2 class="h3">Send a note</h2>
+
+  <form id="contact-form" action={endpoint} method="POST" class="mt-6 flex flex-col gap-6" data-endpoint={endpoint}>
+    <div class="field">
+      <label for="cf-name">Name</label>
+      <input id="cf-name" name="name" type="text" autocomplete="name" required />
+      <p class="field-error" id="cf-name-error" hidden><span class="error-icon" aria-hidden="true">!</span>This field is required.</p>
+    </div>
+
+    <div class="field">
+      <label for="cf-email">Work email</label>
+      <input id="cf-email" name="email" type="email" autocomplete="email" required />
+      <p class="field-error" id="cf-email-error" hidden><span class="error-icon" aria-hidden="true">!</span>Enter a full email address, like name@company.com.</p>
+    </div>
+
+    <div class="field">
+      <label for="cf-company">Company <span class="font-normal text-ink-2">(optional)</span></label>
+      <input id="cf-company" name="company" type="text" autocomplete="organization" />
+    </div>
+
+    <div class="field">
+      <label for="cf-interest">What are you looking for?</label>
+      <div class="select-wrap">
+        <select id="cf-interest" name="interest" required>
+          <option value="" disabled selected>Choose one</option>
+          {options.map((o) => <option value={o}>{o}</option>)}
+        </select>
+      </div>
+      <p class="field-error" id="cf-interest-error" hidden><span class="error-icon" aria-hidden="true">!</span>This field is required.</p>
+    </div>
+
+    <div class="field">
+      <label for="cf-message">Tell us a little about it</label>
+      <textarea id="cf-message" name="message" rows="4" required placeholder="What’s the problem, roughly what size, and when does it need to be done?"></textarea>
+      <p class="field-error" id="cf-message-error" hidden><span class="error-icon" aria-hidden="true">!</span>This field is required.</p>
+    </div>
+
+    <div class="honeypot" aria-hidden="true">
+      <label for="cf-website">Website</label>
+      <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+    <input type="hidden" name="_subject" value="iLexicon enquiry" />
+
+    <div class="flex flex-col gap-4">
+      <Button variant="primary" type="submit" class="w-full md:w-auto md:self-start">Send</Button>
+      <p class="field-error" id="cf-send-error" role="alert" hidden><span class="error-icon" aria-hidden="true">!</span>Something went wrong sending your note. Your message is still here — please try again.</p>
+    </div>
+  </form>
+
+  <div id="cf-success" class="success mt-6" role="status" tabindex="-1" hidden>
+    <span class="success-dot" aria-hidden="true"></span>
+    <p class="m-0 text-ink">Thanks — we’ll reply within two business days.</p>
+  </div>
+
+  <p class="small mt-6 text-ink-2">We don’t share your details with anyone and don’t add you to a list.</p>
+</div>
+
+<script src="../scripts/contact.ts"></script>
+
+<style>
+  .form-card {
+    padding: 40px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+  }
+  @media (max-width: 767.98px) {
+    .form-card {
+      padding: 24px;
+    }
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .field label {
+    font: 500 15px/24px var(--font-body);
+    color: var(--ink);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg);
+    border: 1px solid var(--ink-3);
+    border-radius: var(--radius-input);
+    font: 400 16px/24px var(--font-body);
+    color: var(--ink);
+  }
+  .field textarea {
+    min-height: 128px;
+    resize: vertical;
+  }
+  .field ::placeholder {
+    color: var(--ink-3);
+    opacity: 1;
+  }
+  .field input:focus-visible,
+  .field select:focus-visible,
+  .field textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .select-wrap {
+    position: relative;
+  }
+  .select-wrap select {
+    appearance: none;
+    padding-right: 48px;
+  }
+  .select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    background: no-repeat center / 16px 16px
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23121417' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  }
+  .field [aria-invalid='true'] {
+    border: 2px solid var(--ink);
+    padding: 11px 15px;
+  }
+  .field-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    font: 500 14px/20px var(--font-body);
+    color: var(--ink);
+  }
+  .field-error[hidden] {
+    display: none;
+  }
+  .error-icon {
+    display: inline-flex;
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--surface);
+    font: 700 12px/1 var(--font-body);
+  }
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .success {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-input);
+  }
+  .success[hidden] {
+    display: none;
+  }
+  .success-dot {
+    flex: 0 0 12px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+</style>

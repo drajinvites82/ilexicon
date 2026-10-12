@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import OfficeBlock from '../components/OfficeBlock.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../content/site';
+---
+<Base
+  title="Contact — iLexicon"
+  description="Send a note about a project, a process to automate, or people you need on your team. Reply within two business days."
+  current="contact"
+>
+  <section aria-labelledby="contact-heading" class="container-site pt-14 pb-18 md:py-28">
+    <div class="grid gap-12 md:grid-cols-11 md:gap-16">
+      <div class="flex flex-col gap-6 md:col-span-6">
+        <Eyebrow class="mb-0">Contact</Eyebrow>
+        <h1 id="contact-heading" class="h1">Tell us what you need.</h1>
+        <p class="lede m-0">
+          Whether it’s a project, a process you want automated, or people you need on your team, send a note. It goes straight to the founder’s inbox and gets a reply within two business days.
+        </p>
+        <p class="small m-0 text-ink-2">
+          Looking for a role? See <a href="/careers" class="text-accent underline underline-offset-2 hover:text-accent-hover">Careers</a> or email <a href={`mailto:${site.emails.careers}`} class="text-accent underline underline-offset-2 hover:text-accent-hover">{site.emails.careers}</a>.
+        </p>
+        <div class="mt-2 border-t border-line pt-8">
+          <Eyebrow>Office</Eyebrow>
+          <OfficeBlock />
+        </div>
+      </div>
+
+      <div class="order-first md:order-none md:col-span-5">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+</Base>
