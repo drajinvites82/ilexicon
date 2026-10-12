@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#FAFAF7;color:#4A4F57;font:400 17px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:#1F5EFF;text-decoration:none}a:hover{color:#1446D6}
+input,select,textarea,button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid #1F5EFF;outline-offset:2px}
+h1,h2,h3,p{margin:0}
+</style>
+</helmet>
+
+<a href="#main" style="position:absolute;left:-9999px;top:8px;background:#1F5EFF;color:#fff;padding:8px 12px;border-radius:6px" style-focus="left:8px">Skip to content</a>
+
+<header style="position:sticky;top:0;z-index:50;height:64px;background:rgba(250,250,247,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #E6E4DE">
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="#" onClick="{{ nav.home }}" aria-label="iLexicon home" style="font:600 22px/1 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417"><span style="color:#1F5EFF">i</span>Lexicon</a>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Primary" style="display:flex;align-items:center;gap:32px;margin-left:auto">
+        <a href="#" onClick="{{ nav.services }}" style="font:500 15px/1 Inter,sans-serif;color:{{ navColor.services }}" style-hover="color:#121417">Services</a>
+        <a href="#" onClick="{{ nav.careers }}" style="font:500 15px/1 Inter,sans-serif;color:{{ navColor.careers }}" style-hover="color:#121417">Careers</a>
+        <a href="#" onClick="{{ nav.about }}" style="font:500 15px/1 Inter,sans-serif;color:{{ navColor.about }}" style-hover="color:#121417">About</a>
+        <a href="#" onClick="{{ nav.contact }}" style="font:500 15px/1 Inter,sans-serif;color:{{ navColor.contact }}" style-hover="color:#121417">Contact</a>
+      </nav>
+    </sc-if>
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="#" onClick="{{ nav.contact }}" style="display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 20px;border-radius:20px;background:#1F5EFF;color:#fff;font:500 15px/1 Inter,sans-serif;white-space:nowrap" style-hover="background:#1446D6;color:#fff">Contact us</a>
+      <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+        <button type="button" aria-label="Menu" onClick="{{ toggleMenu }}" style="width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:none;border:0;cursor:pointer;color:#121417">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M3 6h16M3 11h16M3 16h16"></path></svg>
+        </button>
+      </sc-if>
+    </div>
+  </div>
+</header>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:64px 0 0 0;z-index:49;background:#FAFAF7;padding:32px 24px;display:flex;flex-direction:column;gap:8px">
+    <a href="#" onClick="{{ nav.services }}" style="font:600 32px/1.3 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;padding:8px 0;border-bottom:1px solid #E6E4DE">Services</a>
+    <a href="#" onClick="{{ nav.careers }}" style="font:600 32px/1.3 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;padding:8px 0;border-bottom:1px solid #E6E4DE">Careers</a>
+    <a href="#" onClick="{{ nav.about }}" style="font:600 32px/1.3 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;padding:8px 0;border-bottom:1px solid #E6E4DE">About</a>
+    <a href="#" onClick="{{ nav.contact }}" style="font:600 32px/1.3 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;padding:8px 0;border-bottom:1px solid #E6E4DE">Contact</a>
+  </div>
+</sc-if>
+
+<main id="main">
+
+<!-- ============ HOME ============ -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Home">
+
+  <section style="max-width:1200px;margin:0 auto;padding:96px 24px 112px;min-height:80vh;display:flex;flex-wrap:wrap;align-items:center;gap:48px 64px">
+    <div style="flex:1 1 480px;min-width:0;max-width:720px">
+      <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">IT services · software · team augmentation · since 2016</p>
+      <h1 style="font:600 {{ h1Size }}/1.1 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:24px;max-width:13.5em">Software, automation and the people to deliver it.</h1>
+      <p style="font-size:20px;line-height:1.55;color:#4A4F57;margin-top:24px;max-width:60ch">iLexicon is an IT services firm of senior developers, consultants and specialists. We build and integrate software, automate the processes behind it, and place experienced engineers on your team when you need more hands.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:32px">
+        <a href="#" onClick="{{ nav.contact }}" style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:20px;background:#1F5EFF;color:#fff;font:500 16px/1 Inter,sans-serif" style-hover="background:#1446D6;color:#fff">Contact us</a>
+        <a href="#" onClick="{{ nav.services }}" style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:20px;border:1px solid #121417;color:#121417;font:500 16px/1 Inter,sans-serif" style-hover="background:#121417;color:#fff">Our services</a>
+      </div>
+    </div>
+    <div style="flex:1 1 300px;min-width:0;max-width:440px;margin:0 auto">
+      <svg viewBox="0 0 400 400" width="100%" role="img" aria-label="Small dots growing into three connected points: define, design, deliver" style="display:block">
+        <defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="#8A9099" opacity=".55"></circle></pattern></defs>
+        <rect width="400" height="400" fill="url(#dots)"></rect>
+        <path d="M70 310 L210 110 L330 250" fill="none" stroke="#1F5EFF" stroke-width="1.5"></path>
+        <path d="M70 310 L330 250" fill="none" stroke="#8A9099" stroke-width="1" stroke-dasharray="3 5"></path>
+        <circle cx="70" cy="310" r="16" fill="none" stroke="#1F5EFF" stroke-width="1" opacity=".35"></circle>
+        <circle cx="210" cy="110" r="16" fill="none" stroke="#1F5EFF" stroke-width="1" opacity=".35"></circle>
+        <circle cx="330" cy="250" r="16" fill="none" stroke="#1F5EFF" stroke-width="1" opacity=".35"></circle>
+        <circle cx="70" cy="310" r="6" fill="#1F5EFF"></circle>
+        <circle cx="210" cy="110" r="6" fill="#1F5EFF"></circle>
+        <circle cx="330" cy="250" r="6" fill="#FAFAF7" stroke="#1F5EFF" stroke-width="2"></circle>
+      </svg>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid #E6E4DE">
+    <div style="max-width:1200px;margin:0 auto;padding:112px 24px">
+      <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">What we do</p>
+      <h2 style="font:600 36px/1.15 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:12px">Four things, done properly.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;margin-top:48px">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+          <a href="#" onClick="{{ s.go }}" style="display:flex;flex-direction:column;gap:16px;background:#fff;border:1px solid #E6E4DE;border-radius:12px;padding:32px;color:inherit;transition:border-color .2s" style-hover="border-color:#1F5EFF;color:inherit">
+            <span style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;color:#8A9099">{{ s.n }}</span>
+            <h3 style="font:600 22px/1.3 'Instrument Sans',sans-serif;color:#121417">{{ s.title }}</h3>
+            <p style="color:#4A4F57">{{ s.card }}</p>
+            <span style="color:#1F5EFF;font-weight:500;margin-top:auto">Learn more →</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid #E6E4DE">
+    <div style="max-width:1200px;margin:0 auto;padding:112px 24px">
+      <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">How we work</p>
+      <h2 style="font:600 36px/1.15 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:12px">Define. Design. Deliver.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:48px 40px;margin-top:56px">
+        <div style="position:relative;padding-top:40px">
+          <span aria-hidden="true" style="position:absolute;top:-12px;left:-6px;font:600 120px/1 'Instrument Sans',sans-serif;letter-spacing:-.04em;color:#1F5EFF;opacity:.2;user-select:none">1</span>
+          <h3 style="position:relative;font:600 22px/1.3 'Instrument Sans',sans-serif;color:#121417">Define</h3>
+          <p style="margin-top:12px">We start by understanding the process, not the technology. A short discovery ends in a written scope, an estimate and an architecture note.</p>
+        </div>
+        <div style="position:relative;padding-top:40px">
+          <span aria-hidden="true" style="position:absolute;top:-12px;left:-6px;font:600 120px/1 'Instrument Sans',sans-serif;letter-spacing:-.04em;color:#1F5EFF;opacity:.2;user-select:none">2</span>
+          <h3 style="position:relative;font:600 22px/1.3 'Instrument Sans',sans-serif;color:#121417">Design</h3>
+          <p style="margin-top:12px">Working prototypes over slide decks. You see the real thing early and often.</p>
+        </div>
+        <div style="position:relative;padding-top:40px">
+          <span aria-hidden="true" style="position:absolute;top:-12px;left:-6px;font:600 120px/1 'Instrument Sans',sans-serif;letter-spacing:-.04em;color:#1F5EFF;opacity:.2;user-select:none">3</span>
+          <h3 style="position:relative;font:600 22px/1.3 'Instrument Sans',sans-serif;color:#121417">Deliver</h3>
+          <p style="margin-top:12px">Fixed scope, a monthly team, or people embedded in yours. Weekly demos, a single point of contact, code in your repositories from day one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff;border-top:1px solid #E6E4DE;border-bottom:1px solid #E6E4DE">
+    <div style="max-width:1200px;margin:0 auto;padding:112px 24px">
+      <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">Why iLexicon</p>
+      <h2 style="font:600 36px/1.15 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:12px">Experience you can put to work.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:40px;margin-top:48px">
+        <div style="border-top:1px solid #E6E4DE;padding-top:24px"><h3 style="font:600 22px/1.3 'Instrument Sans',sans-serif;color:#121417">Senior people.</h3><p style="margin-top:12px">Developers, consultants and specialists with years of delivery behind them. The person who scopes your project is the person who builds it.</p></div>
+        <div style="border-top:1px solid #E6E4DE;padding-top:24px"><h3 style="font:600 22px/1.3 'Instrument Sans',sans-serif;color:#121417">Process first.</h3><p style="margin-top:12px">We analyze how the work actually flows before we automate or rebuild any of it, so the software fits the business and not the other way round.</p></div>
+        <div style="border-top:1px solid #E6E4DE;padding-top:24px"><h3 style="font:600 22px/1.3 'Instrument Sans',sans-serif;color:#121417">Flexible engagement.</h3><p style="margin-top:12px">A fixed-scope project, a monthly team, or individual specialists on your payroll’s terms. Scale up when the work grows and down when it doesn’t.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ hasJobs }}" hint-placeholder-val="{{ true }}">
+    <section style="background:#fff;border-bottom:1px solid #E6E4DE">
+      <div style="max-width:1200px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 32px">
+        <span style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">Careers</span>
+        <span style="color:#121417"><strong style="font-weight:600">We’re hiring.</strong> <span style="color:#4A4F57">{{ jobTitles }}</span></span>
+        <a href="#" onClick="{{ nav.careers }}" style="font-weight:500;margin-left:auto">See open positions →</a>
+      </div>
+    </section>
+  </sc-if>
+
+  <section style="background:#1F5EFF;color:#fff">
+    <div style="max-width:1200px;margin:0 auto;padding:112px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <h2 style="font:600 36px/1.15 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#fff">Have a project in mind?</h2>
+      <p style="max-width:52ch;color:#fff;font-size:18px">Tell us what you’re trying to do. We’ll reply within two business days with an honest read on scope, timing and cost.</p>
+      <a href="#" onClick="{{ nav.contact }}" style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:20px;background:#fff;color:#1F5EFF;font:500 16px/1 Inter,sans-serif;margin-top:12px" style-hover="background:#FAFAF7;color:#1446D6">Contact us</a>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ SERVICES ============ -->
+<sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Services">
+  <section style="max-width:1200px;margin:0 auto;padding:96px 24px 64px">
+    <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">Services</p>
+    <h1 style="font:600 {{ h1Size }}/1.1 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:24px;max-width:20ch">Four service lines. One team.</h1>
+    <p style="font-size:20px;line-height:1.55;margin-top:24px;max-width:65ch">Everything below is delivered by the same group of senior people — so an automation project can grow into a dedicated team, a build can hand off to maintenance, or a single specialist can turn into a whole squad, without a new vendor conversation.</p>
+  </section>
+  <section style="max-width:1200px;margin:0 auto;padding:0 24px 112px;display:flex;align-items:flex-start;gap:64px">
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="On this page" style="position:sticky;top:96px;flex:0 0 220px;display:flex;flex-direction:column;gap:4px;border-left:1px solid #E6E4DE">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+          <a href="#{{ s.id }}" onClick="{{ s.jump }}" style="display:flex;gap:12px;padding:8px 0 8px 20px;margin-left:-1px;border-left:1px solid transparent;color:#4A4F57;font-size:15px;font-weight:500" style-hover="color:#121417;border-left-color:#1F5EFF"><span style="font:400 12px/1.6 'JetBrains Mono',monospace;color:#8A9099">{{ s.n }}</span>{{ s.title }}</a>
+        </sc-for>
+      </nav>
+    </sc-if>
+    <div style="flex:1 1 0;min-width:0;max-width:760px;display:flex;flex-direction:column">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+        <article id="{{ s.id }}" style="padding:64px 0;border-top:1px solid #E6E4DE;scroll-margin-top:88px">
+          <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">{{ s.n }}</p>
+          <h2 style="font:600 36px/1.15 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:12px">{{ s.title }}</h2>
+          <p style="margin-top:24px;max-width:65ch">{{ s.intro }}</p>
+          <h3 style="font:600 22px/1.3 'Instrument Sans',sans-serif;color:#121417;margin-top:40px">{{ s.listTitle }}</h3>
+          <ul style="margin:16px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ s.items }}" as="it" hint-placeholder-count="4">
+              <li style="display:flex;gap:14px;align-items:flex-start"><span aria-hidden="true" style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:#1F5EFF;margin-top:11px"></span><span>{{ it }}</span></li>
+            </sc-for>
+          </ul>
+          <p style="margin-top:32px;padding:16px 20px;background:#fff;border:1px solid #E6E4DE;border-radius:12px;font-size:15px"><strong style="font-weight:600;color:#121417">{{ s.footLabel }}</strong> {{ s.foot }}</p>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+  <section style="background:#1F5EFF;color:#fff">
+    <div style="max-width:1200px;margin:0 auto;padding:112px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <h2 style="font:600 36px/1.15 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#fff">Have a project in mind?</h2>
+      <p style="max-width:52ch;color:#fff;font-size:18px">Tell us what you’re trying to do. We’ll reply within two business days with an honest read on scope, timing and cost.</p>
+      <a href="#" onClick="{{ nav.contact }}" style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:20px;background:#fff;color:#1F5EFF;font:500 16px/1 Inter,sans-serif;margin-top:12px" style-hover="background:#FAFAF7;color:#1446D6">Contact us</a>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ CAREERS ============ -->
+<sc-if value="{{ isCareers }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Careers">
+  <section style="max-width:1200px;margin:0 auto;padding:96px 24px 64px">
+    <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">Careers</p>
+    <h1 style="font:600 {{ h1Size }}/1.1 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:24px;max-width:20ch">Work with iLexicon.</h1>
+    <p style="font-size:20px;line-height:1.55;margin-top:24px;max-width:65ch">We hire developers, consultants and specialists for our own projects and for client engagements — full-time and contract, on-site and remote. The positions below are the ones we hire for most often. To apply, email <a href="mailto:careers@ilexicon.com">careers@ilexicon.com</a> with the role title in the subject and your CV attached.</p>
+  </section>
+  <section style="background:#fff;border-top:1px solid #E6E4DE">
+    <div style="max-width:1200px;margin:0 auto;padding:80px 24px 112px">
+      <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">Positions</p>
+      <h2 style="font:600 36px/1.15 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:12px">Open positions</h2>
+      <sc-if value="{{ hasJobs }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px;margin-top:48px">
+          <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="6">
+            <article style="display:flex;flex-direction:column;gap:16px;background:#FAFAF7;border:1px solid #E6E4DE;border-radius:12px;padding:32px">
+              <h3 style="font:600 22px/1.3 'Instrument Sans',sans-serif;color:#121417">{{ j.title }}</h3>
+              <p style="font:400 12px/1.6 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">{{ j.meta }}</p>
+              <p style="font-size:15px;color:#121417;font-weight:500">{{ j.skillsText }}</p>
+              <p>{{ j.summary }}</p>
+              <a href="{{ j.mailto }}" style="align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:20px;border:1px solid #121417;color:#121417;font:500 16px/1 Inter,sans-serif;margin-top:8px" style-hover="background:#121417;color:#fff">Apply by email</a>
+            </article>
+          </sc-for>
+        </div>
+        <p style="margin-top:32px;font-size:14px;color:#4A4F57">Don’t see your role? We also hire for adjacent skills. Send a CV to <a href="mailto:careers@ilexicon.com">careers@ilexicon.com</a> and tell us what you do.</p>
+      </sc-if>
+      <sc-if value="{{ noJobs }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:40px;background:#FAFAF7;border:1px dashed #E6E4DE;border-radius:12px;padding:32px;max-width:65ch">
+          <h3 style="font:600 22px/1.3 'Instrument Sans',sans-serif;color:#121417">No open positions right now.</h3>
+          <p style="margin-top:12px">We hire throughout the year. Send a CV to <a href="mailto:careers@ilexicon.com">careers@ilexicon.com</a> with the kind of work you want to do, and we’ll reach out when something fits.</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+  <section style="border-top:1px solid #E6E4DE">
+    <div style="max-width:1200px;margin:0 auto;padding:72px 24px">
+      <p style="font-size:20px;line-height:1.55;color:#121417;max-width:65ch">Looking to add people to your team rather than join one? <a href="#" onClick="{{ anchor.team }}">See Team augmentation.</a></p>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ ABOUT ============ -->
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="About">
+  <section style="max-width:1200px;margin:0 auto;padding:96px 24px 64px">
+    <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">About</p>
+    <h1 style="font:600 {{ h1Size }}/1.1 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:24px;max-width:20ch">A team of specialists, ten years in.</h1>
+    <p style="font-size:20px;line-height:1.55;margin-top:24px;max-width:65ch">iLexicon was founded in 2016 to deliver software and IT projects for US businesses with senior people, clear scope and no layers between you and the engineers doing the work.</p>
+  </section>
+  <section style="border-top:1px solid #E6E4DE">
+    <div style="max-width:1200px;margin:0 auto;padding:80px 24px 112px;display:flex;flex-direction:column;gap:72px">
+      <div style="max-width:65ch">
+        <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">01</p>
+        <h2 style="font:600 36px/1.15 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:12px">Who we are</h2>
+        <p style="margin-top:24px">We’re a team of IT development engineers, consultants and specialists — developers, SAP and ERP consultants, database and cloud architects, data and QA engineers — who have spent years delivering for businesses in e-commerce, professional services, distribution, publishing and corporate back-office operations.</p>
+        <p style="margin-top:20px">We are process experts first. Before we automate or rebuild anything, we analyze how the work actually flows, where the hours and errors go, and what the business needs the system to do. Then we build the smallest thing that fixes it.</p>
+      </div>
+      <div style="max-width:65ch">
+        <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">02</p>
+        <h2 style="font:600 36px/1.15 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:12px">What we do for you</h2>
+        <ul style="margin:24px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:16px">
+          <li style="display:flex;gap:14px"><span aria-hidden="true" style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:#1F5EFF;margin-top:11px"></span><span><strong style="font-weight:500;color:#121417">Analyze and improve your process.</strong> We map the workflow, find the repetitive and error-prone steps, and recommend what to automate, what to integrate and what to leave alone.</span></li>
+          <li style="display:flex;gap:14px"><span aria-hidden="true" style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:#1F5EFF;margin-top:11px"></span><span><strong style="font-weight:500;color:#121417">Build and integrate software.</strong> Custom web applications, portals, internal tools, data pipelines and the integrations between the systems you already own.</span></li>
+          <li style="display:flex;gap:14px"><span aria-hidden="true" style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:#1F5EFF;margin-top:11px"></span><span><strong style="font-weight:500;color:#121417">Automate with AI where it earns its place.</strong> Document pipelines, inbox triage, approval routing and assistants over your own data — one process at a time, measured on hours saved.</span></li>
+          <li style="display:flex;gap:14px"><span aria-hidden="true" style="flex:0 0 6px;width:6px;height:6px;border-radius:50%;background:#1F5EFF;margin-top:11px"></span><span><strong style="font-weight:500;color:#121417">Augment your team.</strong> Strong, experienced resources — individual specialists or a managed group — who join your team on contract and work to your standards, your tools and your priorities.</span></li>
+        </ul>
+      </div>
+      <div style="max-width:65ch">
+        <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">03</p>
+        <h2 style="font:600 36px/1.15 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:12px">How an engagement runs</h2>
+        <ol style="margin:32px 0 0;padding:0;list-style:none;display:flex;flex-direction:column">
+          <li style="display:flex;gap:24px;padding:20px 0;border-top:1px solid #E6E4DE"><span style="flex:0 0 40px;font:600 22px/1.3 'Instrument Sans',sans-serif;color:#1F5EFF">1</span><span><strong style="font-weight:500;color:#121417">Tell us what you need.</strong> Send a note through the contact page. We reply within two business days with questions and an honest first read.</span></li>
+          <li style="display:flex;gap:24px;padding:20px 0;border-top:1px solid #E6E4DE"><span style="flex:0 0 40px;font:600 22px/1.3 'Instrument Sans',sans-serif;color:#1F5EFF">2</span><span><strong style="font-weight:500;color:#121417">Discovery.</strong> A short engagement — usually one to two weeks — ending in a written scope, an estimate with assumptions spelled out, and an architecture note you can take elsewhere. For team augmentation, this is where we agree roles and propose named people.</span></li>
+          <li style="display:flex;gap:24px;padding:20px 0;border-top:1px solid #E6E4DE"><span style="flex:0 0 40px;font:600 22px/1.3 'Instrument Sans',sans-serif;color:#1F5EFF">3</span><span><strong style="font-weight:500;color:#121417">Delivery.</strong> Fixed scope, monthly team, or people embedded in yours. Weekly demos or reporting, one point of contact, your repositories and tools from the first day.</span></li>
+          <li style="display:flex;gap:24px;padding:20px 0;border-top:1px solid #E6E4DE;border-bottom:1px solid #E6E4DE"><span style="flex:0 0 40px;font:600 22px/1.3 'Instrument Sans',sans-serif;color:#1F5EFF">4</span><span><strong style="font-weight:500;color:#121417">After.</strong> Maintenance on a light retainer, an ongoing team, or a clean handover to your own people. All three are normal.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+  <section style="background:#1F5EFF;color:#fff">
+    <div style="max-width:1200px;margin:0 auto;padding:112px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <h2 style="font:600 36px/1.15 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#fff">Have a project in mind?</h2>
+      <p style="max-width:52ch;color:#fff;font-size:18px">Tell us what you’re trying to do. We’ll reply within two business days with an honest read on scope, timing and cost.</p>
+      <a href="#" onClick="{{ nav.contact }}" style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:20px;background:#fff;color:#1F5EFF;font:500 16px/1 Inter,sans-serif;margin-top:12px" style-hover="background:#FAFAF7;color:#1446D6">Contact us</a>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ CONTACT ============ -->
+<sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Contact">
+  <section style="max-width:1200px;margin:0 auto;padding:96px 24px 112px;display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column">
+      <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">Contact</p>
+      <h1 style="font:600 {{ h1Size }}/1.1 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:24px">Tell us what you need.</h1>
+      <p style="font-size:20px;line-height:1.55;margin-top:24px;max-width:50ch">Whether it’s a project, a process you want automated, or people you need on your team, send a note. It goes straight to the founder’s inbox and gets a reply within two business days.</p>
+      <p style="font-size:14px;color:#4A4F57;margin-top:24px">Looking for a role? See <a href="#" onClick="{{ nav.careers }}">Careers</a> or email <a href="mailto:careers@ilexicon.com">careers@ilexicon.com</a>.</p>
+      <div style="border-top:1px solid #E6E4DE;margin-top:32px;padding-top:32px">
+        <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">Office</p>
+        <div style="margin-top:16px;font-size:15px;line-height:1.7">
+          <p style="font-weight:500;color:#121417">Corporate office</p>
+          <p style="margin-top:4px">3916 N Potsdam Ave<br>Sioux Falls, SD 57104</p>
+          <p style="margin-top:8px"><a href="tel:+16097555394" style="color:#121417">+1 609 755 5394</a><br><a href="mailto:ideas@ilexicon.com" style="text-decoration:underline">ideas@ilexicon.com</a></p>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1 1 400px;min-width:0;max-width:560px;background:#fff;border:1px solid #E6E4DE;border-radius:12px;padding:40px">
+      <h2 style="font:600 22px/1.3 'Instrument Sans',sans-serif;color:#121417">Send a note</h2>
+      <sc-if value="{{ formSent }}" hint-placeholder-val="{{ false }}">
+        <p role="status" style="margin-top:24px;padding:24px;background:#FAFAF7;border:1px solid #E6E4DE;border-radius:8px;color:#121417;display:flex;gap:12px;align-items:center"><span aria-hidden="true" style="flex:0 0 12px;width:12px;height:12px;border-radius:50%;background:#1F5EFF"></span>Thanks — we’ll reply within two business days.</p>
+      </sc-if>
+      <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ submitForm }}" style="display:flex;flex-direction:column;gap:24px;margin-top:24px">
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:15px;font-weight:500;color:#121417">Name<input name="name" type="text" required="{{ true }}" autoComplete="name" style="height:48px;padding:0 16px;border:1px solid #8A9099;border-radius:8px;background:#FAFAF7;font-size:16px;font-weight:400"></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:15px;font-weight:500;color:#121417">Work email<input name="email" type="email" required="{{ true }}" autoComplete="email" style="height:48px;padding:0 16px;border:1px solid #8A9099;border-radius:8px;background:#FAFAF7;font-size:16px;font-weight:400"></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:15px;font-weight:500;color:#121417">Company <span style="color:#4A4F57;font-weight:400">(optional)</span><input name="company" type="text" autoComplete="organization" style="height:48px;padding:0 16px;border:1px solid #8A9099;border-radius:8px;background:#FAFAF7;font-size:16px;font-weight:400"></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:15px;font-weight:500;color:#121417">What are you looking for?<select name="interest" required="{{ true }}" defaultValue="" style="height:48px;padding:0 16px;border:1px solid #8A9099;border-radius:8px;background:#FAFAF7;font-size:16px;font-weight:400"><option value="" disabled="{{ true }}">Choose one</option><option>AI &amp; automation</option><option>Custom development</option><option>Data &amp; integration</option><option>Team augmentation</option><option>Not sure yet</option></select></label>
+          <label style="display:flex;flex-direction:column;gap:8px;font-size:15px;font-weight:500;color:#121417">Tell us a little about it<textarea name="message" rows="4" required="{{ true }}" placeholder="What’s the problem, roughly what size, and when does it need to be done?" style="min-height:128px;padding:12px 16px;border:1px solid #8A9099;border-radius:8px;background:#FAFAF7;font-size:16px;font-weight:400;resize:vertical"></textarea></label>
+          <input name="website" type="text" tabIndex="-1" autoComplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          <button type="submit" style="align-self:flex-start;height:48px;padding:0 28px;border-radius:20px;border:0;background:#1F5EFF;color:#fff;font:500 16px/1 Inter,sans-serif;cursor:pointer" style-hover="background:#1446D6">Send</button>
+        </form>
+      </sc-if>
+      <p style="margin-top:24px;font-size:14px;color:#4A4F57">We don’t share your details with anyone and don’t add you to a list.</p>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ 404 ============ -->
+<sc-if value="{{ isNotFound }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="404">
+  <section style="max-width:1200px;margin:0 auto;padding:112px 24px 160px">
+    <p style="font:400 12px/1 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#8A9099">404 · Page not found</p>
+    <h1 style="font:600 {{ h1Size }}/1.1 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417;margin-top:24px;max-width:16em">This page didn’t make the move.</h1>
+    <p style="font-size:20px;line-height:1.55;margin-top:24px;max-width:60ch">We rebuilt ilexicon.com in 2026 and retired a lot of old pages. What you were looking for is most likely on one of these:</p>
+    <div style="max-width:640px;margin-top:40px;display:flex;flex-direction:column;border-top:1px solid #E6E4DE">
+      <a href="#" onClick="{{ nav.services }}" style="display:flex;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid #E6E4DE;color:#121417" style-hover="color:#1F5EFF"><span style="flex:0 0 120px;font-weight:500">Services</span><span style="flex:1;color:#4A4F57">What we do and how we work</span><span style="color:#1F5EFF">→</span></a>
+      <a href="#" onClick="{{ nav.careers }}" style="display:flex;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid #E6E4DE;color:#121417" style-hover="color:#1F5EFF"><span style="flex:0 0 120px;font-weight:500">Careers</span><span style="flex:1;color:#4A4F57">Open positions</span><span style="color:#1F5EFF">→</span></a>
+      <a href="#" onClick="{{ nav.about }}" style="display:flex;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid #E6E4DE;color:#121417" style-hover="color:#1F5EFF"><span style="flex:0 0 120px;font-weight:500">About</span><span style="flex:1;color:#4A4F57">Who we are and how we work</span><span style="color:#1F5EFF">→</span></a>
+      <a href="#" onClick="{{ nav.contact }}" style="display:flex;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid #E6E4DE;color:#121417" style-hover="color:#1F5EFF"><span style="flex:0 0 120px;font-weight:500">Contact</span><span style="flex:1;color:#4A4F57">Send us a note</span><span style="color:#1F5EFF">→</span></a>
+    </div>
+    <a href="#" onClick="{{ nav.home }}" style="display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:20px;background:#1F5EFF;color:#fff;font:500 16px/1 Inter,sans-serif;margin-top:32px" style-hover="background:#1446D6;color:#fff">Go to the home page</a>
+  </section>
+</div>
+</sc-if>
+
+</main>
+
+<footer style="border-top:1px solid #E6E4DE">
+  <div style="max-width:1200px;margin:0 auto;padding:64px 24px 32px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:48px 40px">
+      <div>
+        <a href="#" onClick="{{ nav.home }}" style="font:600 24px/1 'Instrument Sans',sans-serif;letter-spacing:-.02em;color:#121417"><span style="color:#1F5EFF">i</span>Lexicon</a>
+        <p style="font:500 16px/1.5 'Instrument Sans',sans-serif;color:#121417;margin-top:12px">Ideas to action.</p>
+        <p style="font-size:14px;line-height:1.5;margin-top:8px;max-width:32ch">IT services, software delivery and team augmentation for US businesses since 2016.</p>
+      </div>
+      <nav aria-label="Footer" style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+        <a href="#" onClick="{{ nav.services }}" style="color:#4A4F57" style-hover="color:#121417">Services</a>
+        <a href="#" onClick="{{ nav.careers }}" style="color:#4A4F57" style-hover="color:#121417">Careers</a>
+        <a href="#" onClick="{{ nav.about }}" style="color:#4A4F57" style-hover="color:#121417">About</a>
+        <a href="#" onClick="{{ nav.contact }}" style="color:#4A4F57" style-hover="color:#121417">Contact</a>
+      </nav>
+      <div style="font-size:14px;line-height:1.7">
+        <p style="font-weight:500;color:#121417">Corporate office</p>
+        <p style="margin-top:4px">3916 N Potsdam Ave<br>Sioux Falls, SD 57104</p>
+        <p style="margin-top:8px"><a href="tel:+16097555394" style="color:#4A4F57">+1 609 755 5394</a><br><a href="mailto:ideas@ilexicon.com" style="text-decoration:underline">ideas@ilexicon.com</a></p>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:64px;padding-top:24px;border-top:1px solid #E6E4DE;font-size:13px;color:#8A9099">
+      <span>© 2026 iLexicon LLC</span>
+      <a href="#" style="color:#8A9099" style-hover="color:#121417">Privacy</a>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;page&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;home&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;services&quot;,&quot;careers&quot;,&quot;about&quot;,&quot;contact&quot;,&quot;404&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Preview&quot;},&quot;showPositions&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  state = { page: 'home', menuOpen: false, wide: true, sent: false };
+
+  componentDidMount() {
+    this.onResize = () => { const wide = window.innerWidth >= 860; if (wide !== this.state.wide) this.setState({ wide, menuOpen: this.state.menuOpen && !wide }); };
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+    if (this.props.page) this.setState({ page: this.props.page });
+  }
+  componentDidUpdate(prev) {
+    if (prev.page !== this.props.page && this.props.page) this.setState({ page: this.props.page, menuOpen: false });
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this.onResize); }
+
+  go(page, anchor) {
+    return (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState({ page, menuOpen: false }, () => {
+        if (anchor) {
+          const el = document.getElementById(anchor);
+          if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
+        } else window.scrollTo({ top: 0 });
+      });
+    };
+  }
+
+  renderVals() {
+    const { page, menuOpen, wide, sent } = this.state;
+    const nav = { home: this.go('home'), services: this.go('services'), careers: this.go('careers'), about: this.go('about'), contact: this.go('contact') };
+    const base = [
+      { n: '01', id: 'ai-automation', title: 'AI & workflow automation',
+        card: 'Agents, document pipelines and LLM-driven workflows that take real work off your team’s plate — scoped to one process at a time, measured on hours saved.',
+        intro: 'Most businesses don’t need an AI strategy. They need one repetitive, document-heavy process to stop eating their team’s week. We map the process first, then build LLM-driven workflows — invoice and email triage, document extraction, approval routing, assistants over your own data — one process at a time, with a human in the loop until the numbers say otherwise.',
+        listTitle: 'Typical engagements',
+        items: ['Process analysis: where the hours go, what can be automated, and what should stay manual', 'Automating an inbox: classify, extract, route and draft replies for a shared mailbox', 'Document pipelines: contracts, invoices, forms → structured data → your system of record', 'Internal assistants grounded in your SOPs, tickets or knowledge base', 'Evaluation and guardrails for an AI feature a vendor already sold you'],
+        footLabel: 'Stack:', foot: 'Anthropic and OpenAI APIs, Python, Node, Postgres, vector search where it earns its place.' },
+      { n: '02', id: 'development', title: 'Custom web & application development',
+        card: 'Web apps, portals, internal tools and integrations, built on mainstream stacks your own team can maintain after we leave.',
+        intro: 'Web applications, customer and partner portals, internal tools and the integrations between them. We build on mainstream stacks deliberately, so your own team — or any competent vendor — can take the code over later. No proprietary frameworks, no lock-in.',
+        listTitle: 'Typical engagements',
+        items: ['A customer or vendor portal replacing email-and-spreadsheet workflows', 'Internal operations tools: dashboards, approvals, scheduling, inventory', 'Modernizing a legacy PHP, .NET or jQuery application without a big-bang rewrite', 'Mobile-responsive front ends over existing back ends'],
+        footLabel: 'Stack:', foot: 'React, Next.js, Node, Python/Django, .NET, Postgres, MySQL; AWS and Azure.' },
+      { n: '03', id: 'data-integration', title: 'Data, integration & modernization',
+        card: 'APIs, migrations, reporting layers and the unglamorous plumbing between the systems you already own.',
+        intro: 'The unglamorous work that makes everything else possible: getting systems to talk to each other, moving data out of places it shouldn’t be, and building the reporting layer people actually open.',
+        listTitle: 'Typical engagements',
+        items: ['REST and webhook integrations between CRM, ERP, accounting and line-of-business systems', 'Data migrations with reconciliation reports, not just “it ran”', 'Reporting and dashboards (Power BI, Metabase, custom) over a cleaned-up data model', 'E-commerce platform integrations: orders, inventory, fulfilment, payments'],
+        footLabel: 'Stack:', foot: 'SQL, Python, dbt, Airflow or cron where cron is enough, Power BI, Metabase.' },
+      { n: '04', id: 'team-augmentation', title: 'Team augmentation & dedicated teams',
+        card: 'Experienced developers, consultants and specialists who join your team on contract or as a managed group — scaled up or down as the work changes.',
+        intro: 'When the work is clear but the people aren’t there, we supply them. Individual developers, consultants and specialists who join your team on contract — on-site, hybrid or remote — or a named, managed group working as an extension of your team on a monthly engagement. You interview the people; we handle the sourcing, the contracts and the continuity.',
+        listTitle: 'How it works',
+        items: ['You define the role or the team; we propose named people and you interview them', 'Monthly billing per person, with notice terms you can live with', 'A single iLexicon lead owns communication, priorities and quality', 'Your tools, your repositories, your standards'],
+        footLabel: 'Good for:', foot: 'filling a specific skill gap (SAP, database, cloud, data, QA), sustained product work, maintenance of systems we or others built, and backlogs that never make it to the top of an in-house team’s list.' },
+    ];
+    const services = base.map(s => ({ ...s, go: this.go('services', s.id), jump: this.go('services', s.id) }));
+    const anchor = { ai: services[0].go, dev: services[1].go, data: services[2].go, team: services[3].go };
+
+    const positions = [
+      { title: 'Full-Stack Developer', location: 'United States · on-site or remote', type: 'Contract', experience: '4+ years', skills: ['React', 'Node or .NET', 'REST APIs', 'SQL', 'Git'], summary: 'Builds and maintains web applications and internal tools on mainstream stacks. Comfortable owning a feature end to end, from database to UI.' },
+      { title: 'SAP Consultant', location: 'United States · on-site or remote', type: 'Contract', experience: '6+ years', skills: ['SAP S/4HANA', 'FI/CO or MM/SD', 'ABAP exposure', 'Integration', 'Requirements gathering'], summary: 'Functional consultant for implementation, rollout and support engagements. Works with business stakeholders to configure, test and document SAP processes.' },
+      { title: 'Database Architect', location: 'United States · on-site or remote', type: 'Contract-to-hire', experience: '8+ years', skills: ['SQL Server or PostgreSQL', 'Data modeling', 'Performance tuning', 'Migrations', 'Azure or AWS'], summary: 'Designs and tunes relational databases for line-of-business and reporting workloads. Leads schema design, migrations and performance work.' },
+      { title: 'Cloud & DevOps Engineer', location: 'United States · remote', type: 'Contract', experience: '5+ years', skills: ['AWS or Azure', 'Terraform', 'CI/CD', 'Docker', 'Monitoring'], summary: 'Owns infrastructure, pipelines and environments for application teams. Automates deployments and keeps production boring.' },
+      { title: 'Data Engineer', location: 'United States · on-site or remote', type: 'Contract', experience: '4+ years', skills: ['Python', 'SQL', 'dbt or Airflow', 'Power BI', 'Data warehousing'], summary: 'Builds pipelines, data models and reporting layers over operational systems. Turns scattered data into dashboards people open.' },
+      { title: 'QA Automation Engineer', location: 'United States · remote', type: 'Contract', experience: '3+ years', skills: ['Playwright or Selenium', 'API testing', 'Test planning', 'CI integration', 'JavaScript or Python'], summary: 'Designs and automates test coverage for web applications and integrations. Works alongside developers from the first sprint, not after it.' },
+    ];
+    const showPositions = this.props.showPositions ?? true;
+    const jobs = (showPositions ? positions : []).map(j => ({
+      ...j,
+      meta: `${j.location} · ${j.type} · ${j.experience}`,
+      skillsText: j.skills.join(', '),
+      mailto: 'mailto:careers@ilexicon.com?subject=' + encodeURIComponent('Application: ' + j.title),
+    }));
+    const hasJobs = jobs.length > 0;
+    const jobTitles = jobs.slice(0, 3).map(j => j.title).join(' · ') + (jobs.length > 3 ? ' and more' : '');
+
+    const nc = k => page === k ? '#121417' : '#4A4F57';
+    return {
+      nav, anchor, services, jobs, hasJobs, noJobs: !hasJobs, jobTitles,
+      wide, narrow: !wide, menuOpen, toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      h1Size: wide ? '56px' : '36px',
+      navColor: { services: nc('services'), careers: nc('careers'), about: nc('about'), contact: nc('contact') },
+      isHome: page === 'home', isServices: page === 'services', isCareers: page === 'careers', isAbout: page === 'about', isContact: page === 'contact', isNotFound: page === '404',
+      formSent: sent, formOpen: !sent,
+      submitForm: (e) => { e.preventDefault(); if (e.target.website && e.target.website.value) return; this.setState({ sent: true }); },
+    };
+  }
+}
+</script>
+</body>
+</html>

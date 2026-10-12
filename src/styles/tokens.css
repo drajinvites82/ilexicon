@@ -1,0 +1,65 @@
+/* iLexicon tokens — mirrors the design system's tokens.json. Edit values here only. */
+@import "tailwindcss";
+@import "@fontsource-variable/instrument-sans";
+@import "@fontsource-variable/inter";
+@import "@fontsource/jetbrains-mono/400.css";
+
+:root {
+  --bg: #FAFAF7;
+  --surface: #FFFFFF;
+  --ink: #121417;
+  --ink-2: #4A4F57;
+  --ink-3: #6B7079;
+  --line: #E6E4DE;
+  --accent: #1F5EFF;
+  --accent-ink: #FFFFFF;
+  --accent-hover: #1A4FD9;
+}
+
+@theme {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-hover: var(--accent-hover);
+
+  --font-display: "Instrument Sans Variable", system-ui, sans-serif;
+  --font-body: "Inter Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --breakpoint-md: 48rem;           /* 768px — the only breakpoint */
+  --container-site: 1200px;
+
+  --radius-card: 12px;
+  --radius-pill: 24px;
+  --radius-pill-compact: 20px;
+  --radius-input: 8px;
+
+  /* spacing uses Tailwind's 4px scale; stay on 8px multiples: 2,4,6,8,12,16,18,28 → 8,16,24,32,48,64,72,112 */
+}
+
+html { background: var(--bg); color: var(--ink-2); font: 400 17px/1.6 var(--font-body); -webkit-font-smoothing: antialiased; }
+@media (max-width: 767.98px) { html { font-size: 16px; } }
+
+.h1 { font: 600 56px/64px var(--font-display); letter-spacing: -0.02em; color: var(--ink); }
+.h2 { font: 600 36px/44px var(--font-display); letter-spacing: -0.02em; color: var(--ink); }
+.h3 { font: 500 22px/28px var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
+.lede { font-size: 20px; line-height: 32px; color: var(--ink-2); max-width: 65ch; }
+.eyebrow { font: 400 12px/16px var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.small { font-size: 14px; line-height: 20px; }
+@media (max-width: 767.98px) {
+  .h1 { font-size: 36px; line-height: 40px; }
+  .h2 { font-size: 28px; line-height: 36px; }
+  .lede { font-size: 18px; line-height: 28px; }
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* reveal (scripts/reveal.ts adds .is-in) */
+[data-reveal] { opacity: 0; transform: translateY(12px); transition: opacity 400ms ease-out, transform 400ms ease-out; }
+[data-reveal].is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }

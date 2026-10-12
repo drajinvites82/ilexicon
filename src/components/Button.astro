@@ -1,0 +1,73 @@
+---
+/**
+ * Buttons (spec §3.5). Renders <a> when href is given, otherwise <button>.
+ * primary · secondary · inverse (CTA band only) · compact (nav CTA only).
+ */
+interface Props {
+  variant?: 'primary' | 'secondary' | 'inverse' | 'compact';
+  href?: string;
+  type?: 'button' | 'submit';
+  class?: string;
+  id?: string;
+  'aria-label'?: string;
+}
+const { variant = 'primary', href, type = 'button', class: cls = '', id, ...rest } = Astro.props;
+const classes = ['btn', `btn-${variant}`, cls];
+---
+{href ? (
+  <a href={href} class:list={classes} id={id} {...rest}><slot /></a>
+) : (
+  <button type={type} class:list={classes} id={id} {...rest}><slot /></button>
+)}
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    padding: 0 24px;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    font: 500 16px/24px var(--font-body);
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
+  }
+  .btn-primary,
+  .btn-compact {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .btn-primary:hover,
+  .btn-compact:hover {
+    background: var(--accent-hover);
+    color: var(--accent-ink);
+  }
+  .btn-secondary {
+    background: transparent;
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .btn-secondary:hover {
+    background: var(--surface);
+    color: var(--ink);
+  }
+  .btn-inverse {
+    background: var(--surface);
+    color: var(--accent);
+  }
+  .btn-inverse:hover {
+    background: var(--bg);
+    color: var(--accent-hover);
+  }
+  .btn-inverse:focus-visible {
+    outline-color: var(--accent-ink);
+  }
+  .btn-compact {
+    height: 40px;
+    padding: 0 16px;
+    border-radius: var(--radius-pill-compact);
+  }
+</style>

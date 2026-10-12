@@ -1,0 +1,36 @@
+{
+  "trailingSlash": "never",
+  "routes": [
+    { "route": "/index.html", "redirect": "/", "statusCode": 301 },
+    { "route": "/services.html", "redirect": "/services", "statusCode": 301 },
+    { "route": "/analytics.html", "redirect": "/services#data-integration", "statusCode": 301 },
+    { "route": "/big.html", "redirect": "/services#data-integration", "statusCode": 301 },
+    { "route": "/bp.html", "redirect": "/services#data-integration", "statusCode": 301 },
+    { "route": "/digital.html", "redirect": "/services#data-integration", "statusCode": 301 },
+    { "route": "/application.html", "redirect": "/services#development", "statusCode": 301 },
+    { "route": "/ecommerce.html", "redirect": "/services#development", "statusCode": 301 },
+    { "route": "/cms.html", "redirect": "/services#development", "statusCode": 301 },
+    { "route": "/iot.html", "redirect": "/services#development", "statusCode": 301 },
+    { "route": "/aboutus.html", "redirect": "/about", "statusCode": 301 },
+    { "route": "/contactus.html", "redirect": "/contact", "statusCode": 301 },
+    { "route": "/contactus", "redirect": "/contact", "statusCode": 301 },
+    { "route": "/career.html", "redirect": "/careers", "statusCode": 301 },
+    { "route": "/blog-comment.html", "redirect": "/", "statusCode": 301 },
+    { "route": "/404", "statusCode": 404 }
+  ],
+  "forwardingGateway": {
+    "allowedForwardedHosts": ["ilexicon.com", "www.ilexicon.com"]
+  },
+  "responseOverrides": {
+    "404": { "rewrite": "/404.html", "statusCode": 404 }
+  },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=()"
+  },
+  "mimeTypes": {
+    ".webmanifest": "application/manifest+json"
+  }
+}

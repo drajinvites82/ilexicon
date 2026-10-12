@@ -1,0 +1,85 @@
+---
+/**
+ * HTML shell for every page: meta, favicon, skip link, Nav, <main>, Footer, and the two
+ * small scripts (reveal + nav). Per-page meta (OG, JSON-LD) is passed through the head slot.
+ */
+import '../styles/tokens.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import type { NavKey } from '../content/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  current?: NavKey;
+  noindex?: boolean;
+}
+const { title, description, current, noindex = false } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {noindex ? <meta name="robots" content="noindex" /> : canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#FAFAF7" />
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Nav current={current} />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <script src="../scripts/reveal.ts"></script>
+    <script src="../scripts/nav.ts"></script>
+  </body>
+</html>
+
+<style is:global>
+  /* 1200px container with 24px side padding (16px below 768px) — spec §3.3 */
+  .container-site {
+    width: 100%;
+    max-width: var(--container-site);
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+  @media (max-width: 767.98px) {
+    .container-site {
+      padding-inline: 16px;
+    }
+  }
+
+  /* Skip link: first focusable element, visible only on focus — spec §3.10 */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 16px;
+    z-index: 100;
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    color: var(--accent-ink);
+    font: 500 16px/24px var(--font-body);
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    top: 8px;
+  }
+
+  /* Lock the page behind the open mobile nav sheet */
+  html.nav-open {
+    overflow: hidden;
+  }
+
+  /* Without JS the reveal script never runs: show everything */
+  html:not(.js) [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+</style>

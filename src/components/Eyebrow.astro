@@ -1,0 +1,6 @@
+---
+/** Mono uppercase label (spec §3.6). Sits 16px above the heading that follows it. */
+interface Props { as?: 'p' | 'span' | 'div'; class?: string; id?: string }
+const { as: Tag = 'p', class: cls = '', id } = Astro.props;
+---
+<Tag class:list={['eyebrow mb-4', cls]} id={id}><slot /></Tag>

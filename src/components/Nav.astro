@@ -1,0 +1,155 @@
+---
+/**
+ * Site nav (spec §4.1). Sticky 64px bar; desktop links + compact CTA; mobile hamburger
+ * opening a full-height sheet. Behaviour (toggle, focus trap, Esc) lives in scripts/nav.ts;
+ * the .scrolled bottom rule is added by scripts/reveal.ts.
+ */
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+import { navLinks, type NavKey } from '../content/site';
+
+interface Props { current?: NavKey }
+const { current } = Astro.props;
+---
+<header class="site-nav" id="site-nav">
+  <div class="container-site flex h-full items-center gap-6">
+    <a href="/" aria-label="iLexicon home" class="flex shrink-0 rounded-xs">
+      <Logo height={32} />
+    </a>
+
+    <nav aria-label="Primary" class="ml-auto hidden items-center gap-8 md:flex">
+      {navLinks.map((l) => (
+        <a
+          href={l.href}
+          class="nav-link"
+          aria-current={current === l.key ? 'page' : undefined}
+        >{l.label}</a>
+      ))}
+    </nav>
+
+    <div class="ml-auto flex items-center gap-3 md:ml-0">
+      <Button variant="compact" href="/contact">Contact us</Button>
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-expanded="false"
+        aria-controls="nav-sheet"
+        aria-label="Open menu"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="nav-sheet" class="nav-sheet" hidden>
+    <nav aria-label="Primary" class="container-site">
+      <ul class="m-0 list-none p-0">
+        {navLinks.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class="sheet-link"
+              aria-current={current === l.key ? 'page' : undefined}
+            >{l.label}</a>
+          </li>
+        ))}
+      </ul>
+      <Button variant="primary" href="/contact" class="mt-6 w-full">Contact us</Button>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: 64px;
+    background: var(--bg);
+    border-bottom: 1px solid transparent;
+    transition: border-color 150ms ease-out;
+  }
+  .site-nav.scrolled {
+    border-bottom-color: var(--line);
+  }
+
+  .nav-link {
+    font: 500 16px/24px var(--font-body);
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: color 150ms ease-out;
+  }
+  .nav-link:hover,
+  .nav-link[aria-current='page'] {
+    color: var(--ink);
+  }
+
+  /* 40px hamburger: two 1.5px lines that become × when open */
+  .nav-toggle {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-pill-compact);
+    background: none;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 20px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 200ms ease-out;
+  }
+  .nav-toggle[aria-expanded='true'] span:first-child {
+    transform: translateY(3.75px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded='true'] span:last-child {
+    transform: translateY(-3.75px) rotate(-45deg);
+  }
+
+  /* Full-height sheet below the bar */
+  .nav-sheet {
+    position: fixed;
+    inset: 64px 0 0 0;
+    z-index: 49;
+    overflow-y: auto;
+    background: var(--bg);
+    padding-block: 8px 32px;
+  }
+  .sheet-link {
+    display: block;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    font: 500 22px/28px var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .sheet-link:hover {
+    color: var(--accent);
+  }
+
+  /* Desktop: no hamburger, no sheet (the scoped rules above would beat a layered md:hidden) */
+  @media (min-width: 48rem) {
+    .nav-toggle,
+    .nav-sheet {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav,
+    .nav-link,
+    .nav-toggle span {
+      transition: none;
+    }
+  }
+</style>
