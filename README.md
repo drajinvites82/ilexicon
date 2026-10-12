@@ -25,4 +25,10 @@ npm run check      # astro check (types)
 
 ## Deploy
 
-Azure Static Web Apps, from GitHub `main`. The workflow needs the `AZURE_STATIC_WEB_APPS_API_TOKEN` repository secret (the Static Web App's deployment token).
+Azure Static Web Apps, from GitHub `main`. The workflow needs the `AZURE_STATIC_WEB_APPS_API_TOKEN` repository secret (the Static Web App's deployment token). Step-by-step instructions, the post-deploy curl checklist and the custom-domain steps are in [DEPLOY.md](DEPLOY.md).
+
+## Quality gates (checked on the production build)
+
+- Lighthouse mobile: 99–100 performance, 100 accessibility, 100 best practices, 100 SEO on every indexable page (the 404 is `noindex` by design).
+- Shipped JS: about 1.7 KB inline per page, 3.1 KB on `/contact`. No external requests except Formspree on submit.
+- `dist/` is grepped for the banned strings in `handoff/README.md` before every release; keep it clean.

@@ -1,5 +1,5 @@
 ---
-/** One service line on /services (spec §6): eyebrow, h2, paragraph, list title, dot list, closing line. */
+/** One service line on /services (spec §6): eyebrow, h2, paragraph, list title (h3 in the "h4" type style, so heading levels stay in order), dot list, closing line. */
 import Eyebrow from './Eyebrow.astro';
 import type { Service } from '../content/services';
 interface Props { service: Service; last?: boolean }
@@ -9,7 +9,7 @@ const { service, last = false } = Astro.props;
   <Eyebrow>{service.number}</Eyebrow>
   <h2 id={`${service.id}-heading`} class="h2">{service.title}</h2>
   <p class="mt-6 max-w-[65ch] text-ink-2">{service.intro}</p>
-  <h4 class="mt-8 text-[17px] leading-6 font-medium text-ink">{service.listTitle}</h4>
+  <h3 class="mt-8 text-[17px] leading-6 font-medium text-ink">{service.listTitle}</h3>
   <ul class="dot-list mt-4 max-w-[65ch]">
     {service.items.map((item) => <li>{item}</li>)}
   </ul>

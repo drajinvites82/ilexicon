@@ -8,8 +8,8 @@ const { office, phone, emails } = site;
 <address class:list={['not-italic', cls]}>
   <p class="font-medium text-ink">{office.label}</p>
   <p>{office.street}<br />{office.city}, {office.region} {office.postalCode}</p>
-  <p class="mt-2">
-    <a href={`tel:${phone.tel}`} class="text-inherit hover:text-ink">{phone.display}</a><br />
-    <a href={`mailto:${emails.ideas}`} class="text-accent underline underline-offset-2 hover:text-accent-hover">{emails.ideas}</a>
+  <p class="mt-2 flex flex-col items-start">
+    <a href={`tel:${phone.tel}`} class="inline-block py-0.5 text-inherit hover:text-ink">{phone.display}</a>
+    <a href={`mailto:${emails.ideas}`} class="inline-block py-0.5 text-accent underline underline-offset-2 hover:text-accent-hover">{emails.ideas}</a>
   </p>
 </address>
