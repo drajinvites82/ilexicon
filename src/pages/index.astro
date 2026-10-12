@@ -1,14 +1,89 @@
 ---
-// Step 1 placeholder: the shell only. The full Home page (spec §5) is built in step 2.
 import Base from '../layouts/Base.astro';
 import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ProcessStep from '../components/ProcessStep.astro';
+import HiringStrip from '../components/HiringStrip.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { services } from '../content/services';
 ---
 <Base
   title="iLexicon — Software, automation & team augmentation"
   description="IT services firm since 2016. Custom development, AI and workflow automation, data integration, and experienced developers and consultants to augment your team."
 >
-  <section class="container-site py-16 md:py-28">
-    <Eyebrow>IT services · software · team augmentation · since 2016</Eyebrow>
-    <h1 class="h1 max-w-[13.5em]">Software, automation and the people to deliver it.</h1>
+  <!-- 5.1 Hero -->
+  <section aria-labelledby="hero-heading" class="container-site">
+    <div class="grid items-center gap-6 pt-12 pb-18 md:min-h-[80vh] md:grid-cols-12 md:py-16">
+      <div class="md:col-span-7">
+        <Eyebrow>IT services · software · team augmentation · since 2016</Eyebrow>
+        <h1 id="hero-heading" class="h1 max-w-[13.5em]">Software, automation and the people to deliver it.</h1>
+        <p class="lede mt-6">
+          iLexicon is an IT services firm of senior developers, consultants and specialists. We build and integrate software, automate the processes behind it, and place experienced engineers on your team when you need more hands.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 md:flex-row">
+          <Button variant="primary" href="/contact" class="w-full md:w-auto">Contact us</Button>
+          <Button variant="secondary" href="/services" class="w-full md:w-auto">Our services</Button>
+        </div>
+        <div class="-mx-4 mt-12 md:hidden">
+          <HeroVisual variant="mobile" />
+        </div>
+      </div>
+      <div class="hidden md:col-span-5 md:block md:justify-self-end">
+        <HeroVisual variant="desktop" class="max-w-[488px]" />
+      </div>
+    </div>
   </section>
+
+  <!-- 5.2 Services -->
+  <section aria-labelledby="services-heading" class="container-site py-18 md:py-28">
+    <Eyebrow>What we do</Eyebrow>
+    <h2 id="services-heading" class="h2">Four things, done properly.</h2>
+    <div class="mt-8 grid gap-4 md:mt-12 md:grid-cols-2 md:gap-6">
+      {services.map((s) => <ServiceCard service={s} />)}
+    </div>
+  </section>
+
+  <!-- 5.3 How we work (shares the background with 5.2: no top padding) -->
+  <section aria-labelledby="process-heading" class="container-site pb-18 md:pb-28">
+    <Eyebrow>How we work</Eyebrow>
+    <h2 id="process-heading" class="h2">Define. Design. Deliver.</h2>
+    <ol class="mt-8 grid list-none gap-10 p-0 md:mt-12 md:grid-cols-3 md:gap-6">
+      <ProcessStep number="1" title="Define">
+        We start by understanding the process, not the technology. A short discovery ends in a written scope, an estimate and an architecture note.
+      </ProcessStep>
+      <ProcessStep number="2" title="Design">
+        Working prototypes over slide decks. You see the real thing early and often.
+      </ProcessStep>
+      <ProcessStep number="3" title="Deliver">
+        Fixed scope, a monthly team, or people embedded in yours. Weekly demos, a single point of contact, code in your repositories from day one.
+      </ProcessStep>
+    </ol>
+  </section>
+
+  <!-- 5.4 Why iLexicon -->
+  <section aria-labelledby="why-heading" class="border-y border-line bg-surface">
+    <div class="container-site py-18 md:py-28">
+      <Eyebrow>Why iLexicon</Eyebrow>
+      <h2 id="why-heading" class="h2">Experience you can put to work.</h2>
+      <div class="mt-8 grid gap-8 md:mt-12 md:grid-cols-3 md:gap-16">
+        <p class="m-0 text-ink-2" data-reveal>
+          <strong class="font-medium text-ink">Senior people.</strong> Developers, consultants and specialists with years of delivery behind them. The person who scopes your project is the person who builds it.
+        </p>
+        <p class="m-0 text-ink-2" data-reveal>
+          <strong class="font-medium text-ink">Process first.</strong> We analyze how the work actually flows before we automate or rebuild any of it, so the software fits the business and not the other way round.
+        </p>
+        <p class="m-0 text-ink-2" data-reveal>
+          <strong class="font-medium text-ink">Flexible engagement.</strong> A fixed-scope project, a monthly team, or individual specialists on your payroll’s terms. Scale up when the work grows and down when it doesn’t.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5.5 Hiring strip (only when jobs exist) -->
+  <HiringStrip />
+
+  <!-- 5.6 CTA band -->
+  <CtaBand />
 </Base>

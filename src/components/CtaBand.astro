@@ -1,0 +1,23 @@
+---
+/** CTA band (spec §4.3). Identical on Home, Services and About; points at the contact form. */
+import Button from './Button.astro';
+---
+<section aria-labelledby="cta-heading" class="cta-band bg-accent text-accent-ink">
+  <div class="container-site flex flex-col items-center py-18 text-center md:py-28" data-reveal>
+    <h2 id="cta-heading" class="h2 text-accent-ink">Have a project in mind?</h2>
+    <p class="lede mt-4 mb-8 text-accent-ink">
+      Tell us what you’re trying to do. We’ll reply within two business days with an honest read on scope, timing and cost.
+    </p>
+    <Button variant="inverse" href="/contact">Contact us</Button>
+  </div>
+</section>
+
+<style>
+  .cta-band :global(:focus-visible) {
+    outline-color: var(--accent-ink);
+  }
+  .cta-band .h2,
+  .cta-band .lede {
+    color: var(--accent-ink);
+  }
+</style>

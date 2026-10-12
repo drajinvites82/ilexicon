@@ -1,0 +1,137 @@
+---
+/**
+ * The one drawn motif on the site (spec §3.8): a dot field, a two-dot trail, three growing
+ * nodes with rings, one Catmull-Rom curve through them, and (hero only) three label chips.
+ * All geometry is from the §3.8 table, in viewBox units, computed at build time.
+ */
+type Dot = [number, number, number];
+type Variant = {
+  w: number; h: number; pitch: number; origin: [number, number];
+  trail: Dot[]; nodes: Dot[]; focus: [number, number, number, number];
+  labels: boolean; fontSize: number;
+  /** chip offsets from each node: [dx, dy] or [dx, dy, 'end'] for an end-anchored chip */
+  offsets: ([number, number] | [number, number, 'end'])[];
+};
+
+const variants: Record<'desktop' | 'mobile' | 'motif', Variant> = {
+  desktop: {
+    w: 488, h: 528, pitch: 32, origin: [24, 16],
+    trail: [[56, 496, 2], [88, 464, 3]],
+    nodes: [[152, 400, 5], [280, 304, 8], [408, 144, 13]],
+    focus: [280, 288, 190, 270],
+    labels: true, fontSize: 12,
+    offsets: [[20, 34], [24, 36], [-36, -36, 'end']],
+  },
+  mobile: {
+    w: 358, h: 264, pitch: 32, origin: [19, 24],
+    trail: [[19, 248, 2], [51, 216, 3]],
+    nodes: [[115, 184, 4], [211, 120, 6], [307, 56, 10]],
+    focus: [200, 120, 130, 190],
+    labels: true, fontSize: 11,
+    offsets: [[14, 30], [16, 30], [-24, -18, 'end']],
+  },
+  motif: {
+    w: 280, h: 184, pitch: 24, origin: [16, 16],
+    trail: [[40, 160, 1.5]],
+    nodes: [[88, 136, 3], [160, 88, 5], [232, 40, 8]],
+    focus: [160, 88, 90, 130],
+    labels: false, fontSize: 12,
+    offsets: [],
+  },
+};
+
+interface Props { variant: 'desktop' | 'mobile' | 'motif'; class?: string }
+const { variant, class: cls = '' } = Astro.props;
+const v = variants[variant];
+
+// Dot field: discrete per-dot opacity stepping down by distance from the focal point
+const [fx, fy, r1, r2] = v.focus;
+const dots: { x: number; y: number; o: number }[] = [];
+for (let y = v.origin[1]; y <= v.h - v.origin[1] + 0.5; y += v.pitch) {
+  for (let x = v.origin[0]; x <= v.w - v.origin[0] + 0.5; x += v.pitch) {
+    const d = Math.hypot(x - fx, y - fy);
+    dots.push({ x, y, o: d <= r1 ? 1 : d <= r2 ? 0.55 : 0.25 });
+  }
+}
+const byOpacity = [1, 0.55, 0.25].map((o) => ({ o, pts: dots.filter((d) => d.o === o) }));
+
+// Line: Catmull-Rom spline through trail + nodes, emitted as cubic Béziers
+const pts = [...v.trail, ...v.nodes].map(([x, y]) => [x, y] as [number, number]);
+const f = (n: number) => Math.round(n * 100) / 100;
+let path = `M${f(pts[0][0])} ${f(pts[0][1])}`;
+for (let i = 0; i < pts.length - 1; i++) {
+  const p0 = pts[Math.max(i - 1, 0)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(i + 2, pts.length - 1)];
+  const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+  const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+  path += ` C${f(c1[0])} ${f(c1[1])} ${f(c2[0])} ${f(c2[1])} ${f(p2[0])} ${f(p2[1])}`;
+}
+
+// Labels on chips: 24px tall, radius 12, 12px side padding; JetBrains Mono advance is 0.6em
+const labelText = ['01 · DEFINE', '02 · DESIGN', '03 · DELIVER'];
+const chipH = 24;
+const labels = v.labels
+  ? v.nodes.map(([nx, ny], i) => {
+      const text = labelText[i];
+      const w = Math.round(text.length * (0.6 + 0.06) * v.fontSize + 24);
+      const [dx, dy, anchor] = v.offsets[i];
+      const x = anchor === 'end' ? nx + dx - w : nx + dx;
+      const y = ny + dy;
+      return { text, x, y, w };
+    })
+  : [];
+
+const last = v.nodes[v.nodes.length - 1];
+const a11y = v.labels
+  ? { role: 'img' as const, 'aria-label': 'Small dots growing into three connected points: define, design, deliver' }
+  : { 'aria-hidden': 'true' as const };
+---
+<svg
+  class:list={['hero-visual', cls]}
+  viewBox={`0 0 ${v.w} ${v.h}`}
+  width={v.w}
+  height={v.h}
+  focusable="false"
+  {...a11y}
+>
+  <g fill="var(--ink-3)">
+    {byOpacity.map(({ o, pts }) => (
+      <g opacity={o}>
+        {pts.map((d) => <circle cx={d.x} cy={d.y} r="1" />)}
+      </g>
+    ))}
+  </g>
+
+  <path d={path} fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <g fill="var(--accent)">
+    {v.trail.map(([x, y, r]) => <circle cx={x} cy={y} r={r} />)}
+  </g>
+
+  <g fill="none" stroke="var(--accent)" stroke-width="1">
+    {v.nodes.map(([x, y, r]) => <circle cx={x} cy={y} r={r + 8} opacity="0.35" />)}
+    <circle cx={last[0]} cy={last[1]} r={last[2] + 22} opacity="0.15" />
+  </g>
+
+  <g fill="var(--accent)">
+    {v.nodes.map(([x, y, r]) => <circle cx={x} cy={y} r={r} />)}
+  </g>
+
+  {labels.length > 0 && (
+    <g font-family="var(--font-mono)" font-size={v.fontSize} letter-spacing="0.06em" fill="var(--ink-2)">
+      {labels.map((l) => (
+        <g>
+          <rect x={l.x} y={l.y} width={l.w} height={chipH} rx="12" fill="var(--surface)" stroke="var(--line)" stroke-width="1" />
+          <text x={l.x + 12} y={l.y + chipH / 2} dominant-baseline="central">{l.text}</text>
+        </g>
+      ))}
+    </g>
+  )}
+</svg>
+
+<style>
+  .hero-visual {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

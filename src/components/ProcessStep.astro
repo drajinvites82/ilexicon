@@ -1,0 +1,27 @@
+---
+/** One step in "How we work" (spec §5.3): a faint 96px numeral under an h3 and a paragraph. */
+interface Props { number: string; title: string }
+const { number, title } = Astro.props;
+---
+<li class="process-step" data-reveal>
+  <span class="numeral" aria-hidden="true">{number}</span>
+  <h3 class="h3 relative mt-12">{title}</h3>
+  <p class="mt-4 text-ink-2"><slot /></p>
+</li>
+
+<style>
+  .process-step {
+    position: relative;
+  }
+  .numeral {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    font: 600 96px/96px var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    opacity: 0.2;
+    user-select: none;
+    pointer-events: none;
+  }
+</style>

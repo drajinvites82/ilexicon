@@ -1,0 +1,20 @@
+---
+/** Home hiring strip (spec §5.5). Renders nothing when there are no jobs. */
+import Eyebrow from './Eyebrow.astro';
+import { jobs } from '../content/jobs';
+const titles = jobs.slice(0, 3).map((j) => j.title).join(' · ') + (jobs.length > 3 ? ' and more' : '');
+---
+{jobs.length > 0 && (
+  <section aria-label="Careers" class="border-b border-line bg-surface">
+    <div class="container-site flex flex-col gap-3 py-8 md:flex-row md:items-center md:gap-8">
+      <Eyebrow as="span" class="mb-0">Careers</Eyebrow>
+      <p class="m-0">
+        <strong class="font-medium text-ink">We’re hiring.</strong>
+        <span class="text-ink-2"> {titles}</span>
+      </p>
+      <a href="/careers" class="font-medium text-accent hover:underline hover:underline-offset-3 md:ml-auto">
+        See open positions <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+)}
