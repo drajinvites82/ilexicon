@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import JobCard from '../components/JobCard.astro';
+import { jobs } from '../content/jobs';
+import { site } from '../content/site';
+const careersMail = `mailto:${site.emails.careers}`;
+---
+<Base
+  title="Careers — iLexicon"
+  description="Developer, SAP, database, cloud, data and QA positions with iLexicon and our clients. Full-time and contract. Apply by email."
+  current="careers"
+>
+  <PageHeader eyebrow="Careers" title="Work with iLexicon.">
+    We hire developers, consultants and specialists for our own projects and for client engagements — full-time and contract, on-site and remote. The positions below are the ones we hire for most often. To apply, email <a href={careersMail} class="text-accent underline underline-offset-2 hover:text-accent-hover">{site.emails.careers}</a> with the role title in the subject and your CV attached.
+  </PageHeader>
+
+  <section aria-labelledby="positions-heading" class="border-t border-line bg-surface">
+    <div class="container-site pt-12 pb-18 md:pt-16 md:pb-28">
+      <Eyebrow>Positions</Eyebrow>
+      <h2 id="positions-heading" class="h2">Open positions</h2>
+
+      {jobs.length > 0 ? (
+        <>
+          <div class="mt-8 grid gap-6 md:mt-12 md:grid-cols-2">
+            {jobs.map((job) => <JobCard job={job} />)}
+          </div>
+          <p class="small mt-8 text-ink-2">
+            Don’t see your role? We also hire for adjacent skills. Send a CV to <a href={careersMail} class="text-accent underline underline-offset-2 hover:text-accent-hover">{site.emails.careers}</a> and tell us what you do.
+          </p>
+        </>
+      ) : (
+        <div class="empty-state mt-8 md:mt-12">
+          <h3 class="h3">No open positions right now.</h3>
+          <p class="mt-4 text-ink-2">
+            We hire throughout the year. Send a CV to <a href={careersMail} class="text-accent underline underline-offset-2 hover:text-accent-hover">{site.emails.careers}</a> with the kind of work you want to do, and we’ll reach out when something fits.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section aria-label="Team augmentation" class="container-site py-18">
+    <p class="lede m-0 text-ink">
+      Looking to add people to your team rather than join one? <a href="/services#team-augmentation" class="text-accent underline underline-offset-2 hover:text-accent-hover">See Team augmentation.</a>
+    </p>
+  </section>
+</Base>
+
+<style>
+  .empty-state {
+    max-width: 65ch;
+    padding: 32px;
+    background: var(--surface);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-card);
+  }
+  @media (max-width: 767.98px) {
+    .empty-state {
+      padding: 24px;
+    }
+  }
+</style>

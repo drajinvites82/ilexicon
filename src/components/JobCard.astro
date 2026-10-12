@@ -1,0 +1,33 @@
+---
+/** Careers card (spec §7). Rendered from src/content/jobs.ts; never names a client or a city. */
+import Button from './Button.astro';
+import { site } from '../content/site';
+import type { Job } from '../content/jobs';
+interface Props { job: Job }
+const { job } = Astro.props;
+const mailto = `mailto:${site.emails.careers}?subject=${encodeURIComponent(`Application: ${job.title}`)}`;
+---
+<article class="job-card" data-reveal>
+  <h3 class="h3">{job.title}</h3>
+  <p class="eyebrow">{job.location} · {job.type} · {job.experience}</p>
+  <p class="text-ink">{job.skills.join(', ')}</p>
+  <p class="text-ink-2">{job.summary}</p>
+  <Button variant="secondary" href={mailto} class="mt-auto self-start">Apply by email</Button>
+</article>
+
+<style>
+  .job-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+  }
+  @media (max-width: 767.98px) {
+    .job-card {
+      padding: 24px;
+    }
+  }
+</style>
