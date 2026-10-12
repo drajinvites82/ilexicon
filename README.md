@@ -1,6 +1,6 @@
 # ilexicon.com
 
-Static marketing site for iLexicon. Astro 5 (`output: 'static'`), Tailwind 4, self-hosted fonts, no client framework. The authoritative spec is `handoff/SPEC-v3.md`.
+Static marketing site for iLexicon. Astro 7 (`output: 'static'`), Tailwind 4, self-hosted fonts, no client framework. The authoritative spec is `handoff/SPEC-v3.md`.
 
 ## Develop
 
