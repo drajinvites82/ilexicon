@@ -1,0 +1,13 @@
+{
+  "name": "iLexicon",
+  "short_name": "iLexicon",
+  "description": "IT services, software delivery and team augmentation for US businesses since 2016.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#FAFAF7",
+  "theme_color": "#1F5EFF",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

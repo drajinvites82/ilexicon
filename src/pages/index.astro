@@ -8,11 +8,34 @@ import ProcessStep from '../components/ProcessStep.astro';
 import HiringStrip from '../components/HiringStrip.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { services } from '../content/services';
+import { site } from '../content/site';
+
+// Organization schema (spec §9): one block, no ratings, no JobPosting.
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: site.url,
+  logo: `${site.url}/logo.svg`,
+  email: site.emails.ideas,
+  telephone: site.phone.display,
+  foundingDate: String(site.foundingYear),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.office.street,
+    addressLocality: site.office.city,
+    addressRegion: site.office.region,
+    postalCode: site.office.postalCode,
+    addressCountry: site.office.country,
+  },
+};
 ---
 <Base
   title="iLexicon — Software, automation & team augmentation"
   description="IT services firm since 2016. Custom development, AI and workflow automation, data integration, and experienced developers and consultants to augment your team."
 >
+  <script type="application/ld+json" slot="head" is:inline set:html={JSON.stringify(organization)} />
+
   <!-- 5.1 Hero -->
   <section aria-labelledby="hero-heading" class="container-site">
     <div class="grid items-center gap-6 pt-12 pb-18 md:min-h-[80vh] md:grid-cols-12 md:py-16">
