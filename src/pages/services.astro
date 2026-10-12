@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SideIndex from '../components/SideIndex.astro';
+import ServiceSection from '../components/ServiceSection.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { services } from '../content/services';
+---
+<Base
+  title="Services — iLexicon"
+  description="AI & workflow automation, custom web and application development, data integration, and team augmentation for US businesses."
+  current="services"
+>
+  <PageHeader eyebrow="Services" title="Four service lines. One team.">
+    Everything below is delivered by the same group of senior people — so an automation project can grow into a dedicated team, a build can hand off to maintenance, or a single specialist can turn into a whole squad, without a new vendor conversation.
+  </PageHeader>
+
+  <div class="container-site pb-18 md:pb-28">
+    <div class="md:grid md:grid-cols-12 md:gap-6">
+      <div class="md:col-span-3">
+        <SideIndex />
+      </div>
+      <div class="md:col-span-9">
+        {services.map((s, i) => <ServiceSection service={s} last={i === services.length - 1} />)}
+      </div>
+    </div>
+  </div>
+
+  <CtaBand />
+</Base>

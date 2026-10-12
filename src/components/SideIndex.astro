@@ -1,0 +1,71 @@
+---
+/**
+ * Services "On this page" index (spec §6). Sticky on desktop; a static surface card on mobile.
+ * scripts/reveal.ts sets aria-current="location" on the link for the section nearest the top.
+ */
+import Eyebrow from './Eyebrow.astro';
+import { services } from '../content/services';
+---
+<nav aria-label="On this page" class="side-index" data-side-index>
+  <Eyebrow class="mb-4">On this page</Eyebrow>
+  <ol class="m-0 list-none p-0">
+    {services.map((s) => (
+      <li>
+        <a href={`#${s.id}`}>
+          <span class="num" aria-hidden="true">{s.number}</span>
+          <span class="label">{s.title}</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .side-index a {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 8px 0;
+    text-decoration: none;
+  }
+  .num {
+    font: 400 12px/16px var(--font-mono);
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    flex: 0 0 auto;
+  }
+  .label {
+    font: 500 15px/24px var(--font-body);
+    color: var(--ink-2);
+    transition: color 150ms ease-out;
+  }
+  .side-index a:hover .label,
+  .side-index a[aria-current='location'] .label {
+    color: var(--ink);
+  }
+  .side-index a[aria-current='location'] .num {
+    color: var(--accent);
+  }
+
+  @media (min-width: 48rem) {
+    .side-index {
+      position: sticky;
+      top: 96px;
+    }
+  }
+  @media (max-width: 767.98px) {
+    .side-index {
+      margin-bottom: 24px;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+    }
+    .side-index li + li {
+      border-top: 1px solid var(--line);
+    }
+    .side-index a {
+      padding: 12px 0;
+    }
+  }
+</style>

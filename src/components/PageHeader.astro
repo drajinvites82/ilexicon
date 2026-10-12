@@ -1,0 +1,19 @@
+---
+/** Page header for Services, Careers and About (spec §4.4): eyebrow, h1, lede; motif on the right. */
+import Eyebrow from './Eyebrow.astro';
+import HeroVisual from './HeroVisual.astro';
+interface Props { eyebrow: string; title: string; headingId?: string }
+const { eyebrow, title, headingId = 'page-heading' } = Astro.props;
+---
+<header class="container-site pt-14 pb-12 md:pt-28 md:pb-16">
+  <div class="grid gap-6 md:grid-cols-12 md:items-end">
+    <div class="flex flex-col gap-6 md:col-span-8">
+      <Eyebrow class="mb-0">{eyebrow}</Eyebrow>
+      <h1 id={headingId} class="h1 max-w-[16em]">{title}</h1>
+      <p class="lede m-0"><slot /></p>
+    </div>
+    <div class="hidden md:col-span-4 md:flex md:justify-end md:self-end">
+      <HeroVisual variant="motif" class="max-w-[280px]" />
+    </div>
+  </div>
+</header>

@@ -1,0 +1,72 @@
+---
+/** One service line on /services (spec §6): eyebrow, h2, paragraph, list title, dot list, closing line. */
+import Eyebrow from './Eyebrow.astro';
+import type { Service } from '../content/services';
+interface Props { service: Service; last?: boolean }
+const { service, last = false } = Astro.props;
+---
+<section id={service.id} aria-labelledby={`${service.id}-heading`} class:list={['service-section', { 'is-last': last }]}>
+  <Eyebrow>{service.number}</Eyebrow>
+  <h2 id={`${service.id}-heading`} class="h2">{service.title}</h2>
+  <p class="mt-6 max-w-[65ch] text-ink-2">{service.intro}</p>
+  <h4 class="mt-8 text-[17px] leading-6 font-medium text-ink">{service.listTitle}</h4>
+  <ul class="dot-list mt-4 max-w-[65ch]">
+    {service.items.map((item) => <li>{item}</li>)}
+  </ul>
+  <p class="closing mt-8 max-w-[65ch] text-ink-2">
+    <strong class="font-medium text-ink">{service.footLabel}</strong> {service.foot}
+  </p>
+</section>
+
+<style>
+  .service-section {
+    scroll-margin-top: 96px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--line);
+  }
+  .service-section + .service-section {
+    margin-top: 48px;
+  }
+  .service-section.is-last {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+  @media (min-width: 48rem) {
+    .service-section {
+      padding-bottom: 64px;
+    }
+    .service-section + .service-section {
+      margin-top: 64px;
+    }
+    .service-section.is-last {
+      padding-bottom: 0;
+    }
+  }
+  .dot-list {
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .dot-list li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--ink-2);
+  }
+  .dot-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .closing {
+    padding-top: 16px;
+    border-top: 1px dashed var(--line);
+  }
+</style>
