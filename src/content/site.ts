@@ -1,6 +1,5 @@
 /**
  * Site-wide facts. Everything a human might need to edit before launch lives here.
- * Open items (spec §11): formspreeId and legalEntity are placeholders until Raj supplies them.
  */
 export const site = {
   name: 'iLexicon',
@@ -10,10 +9,10 @@ export const site = {
     'IT services, software delivery and team augmentation for US businesses since 2016.',
   foundingYear: 2016,
 
-  /** Legal entity shown in the © line. Placeholder until confirmed. */
-  legalEntity: 'iLexicon LLC',
+  /** Legal entity shown in the © line and the JSON-LD legalName. */
+  legalEntity: 'Lexicon IT Ltd',
 
-  /** Formspree form ID for the contact form (spec §8.2). https://formspree.io/f/mdeaylaw */
+  /** Formspree form ID for the contact form (spec §8.2): https://formspree.io/f/mdeaylaw */
   formspreeId: 'mdeaylaw',
 
   emails: {
