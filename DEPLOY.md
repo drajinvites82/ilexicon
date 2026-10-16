@@ -25,7 +25,8 @@ Open https://new.ilexicon.com and check:
 - `/nothing-here` shows the branded 404 page
 - one real contact-form submission arrives at ideas@ilexicon.com with the subject
   `iLexicon enquiry: <selection>` (the first submission to the form asks you to confirm the address
-  once). If the Formspree form has "Restrict to domain" on, allow `new.ilexicon.com` for this test.
+  once). Formspree's "Restrict to domain" must be off for this test (or allow `new.ilexicon.com`);
+  otherwise the submission is filed under Spam and no email is sent.
 - honeypot: DevTools → Console, run `document.getElementById('cf-gotcha').value = 'x'`, fill the form
   and send. The success box shows, the Network tab shows no request to formspree.io, nothing arrives.
 
@@ -62,6 +63,9 @@ Every old URL must show `301` with its new path.
 3. Remove the preview: cPanel → Domains → delete `new.ilexicon.com`, then
    `ssh ilexicon-host 'rm -rf ~/new.ilexicon.com'`.
 4. Search Console: verify `ilexicon.com`, submit `https://ilexicon.com/sitemap-index.xml`.
+5. Formspree → form `mdeaylaw` → Settings: turn "Restrict to domain" back on with `ilexicon.com`.
+   While it is on, submissions from any other host (including the preview) are filed as spam and
+   not emailed.
 
 ## Rollback
 
