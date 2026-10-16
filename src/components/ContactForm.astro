@@ -1,17 +1,17 @@
 ---
 /**
- * Contact form card (spec §8.2). Posts to Formspree via fetch in scripts/contact.ts; without JS the
- * form submits natively to the same endpoint. Honeypot field "_gotcha" (Formspree's name) must stay empty.
+ * Contact form card (spec §8.2). Posts to public/contact.php via fetch in scripts/contact.ts; without
+ * JS the form submits natively to the same endpoint. Honeypot field "_gotcha" must stay empty.
  */
 import Button from './Button.astro';
 import { site } from '../content/site';
-const endpoint = `https://formspree.io/f/${site.formspreeId}`;
-const options = ['AI & automation', 'Custom development', 'Data & integration', 'Team augmentation', 'Not sure yet'];
+// Keep in sync with INTERESTS in public/contact.php.
+const options =['AI & automation', 'Custom development', 'Data & integration', 'Team augmentation', 'Not sure yet'];
 ---
 <div class="form-card">
   <h2 class="h3">Send a note</h2>
 
-  <form id="contact-form" action={endpoint} method="POST" class="mt-6 flex flex-col gap-6" data-endpoint={endpoint}>
+  <form id="contact-form" action={site.formEndpoint} method="POST" class="mt-6 flex flex-col gap-6">
     <div class="field">
       <label for="cf-name">Name</label>
       <input id="cf-name" name="name" type="text" autocomplete="name" required />
@@ -50,7 +50,6 @@ const options = ['AI & automation', 'Custom development', 'Data & integration', 
       <label for="cf-gotcha">Website</label>
       <input id="cf-gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
     </div>
-    <input type="hidden" name="_subject" value="iLexicon enquiry" />
 
     <div class="flex flex-col gap-4">
       <Button variant="primary" type="submit" class="w-full md:w-auto md:self-start">Send</Button>

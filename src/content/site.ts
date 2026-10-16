@@ -12,8 +12,8 @@ export const site = {
   /** Legal entity shown in the © line and the JSON-LD legalName. */
   legalEntity: 'Lexicon IT Ltd',
 
-  /** Formspree form ID for the contact form (spec §8.2): https://formspree.io/f/mdeaylaw */
-  formspreeId: 'mdeaylaw',
+  /** Contact form handler (public/contact.php): emails ideas@ from noreply@ilexicon.com. */
+  formEndpoint: '/contact.php',
 
   emails: {
     ideas: 'ideas@ilexicon.com',

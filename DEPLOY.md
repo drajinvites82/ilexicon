@@ -23,12 +23,12 @@ Open https://new.ilexicon.com and check:
 - every nav link, on desktop and at phone width
 - `/services#team-augmentation` scrolls to that section
 - `/nothing-here` shows the branded 404 page
-- one real contact-form submission arrives at ideas@ilexicon.com with the subject
-  `iLexicon enquiry: <selection>` (the first submission to the form asks you to confirm the address
-  once). Formspree's "Restrict to domain" must be off for this test (or allow `new.ilexicon.com`);
-  otherwise the submission is filed under Spam and no email is sent.
+- fill the contact form once and confirm the email arrives at ideas@ilexicon.com from
+  `ilexicon.com <noreply@ilexicon.com>`, with the subject `iLexicon enquiry: <selection>` and
+  Reply-To set to the sender. If it lands in spam, fix it in cPanel → Email → Email Deliverability
+  (SPF/DKIM for ilexicon.com), not in code.
 - honeypot: DevTools → Console, run `document.getElementById('cf-gotcha').value = 'x'`, fill the form
-  and send. The success box shows, the Network tab shows no request to formspree.io, nothing arrives.
+  and send. The success box shows, the Network tab shows no request to contact.php, nothing arrives.
 
 ## 2. Launch
 
@@ -63,9 +63,7 @@ Every old URL must show `301` with its new path.
 3. Remove the preview: cPanel → Domains → delete `new.ilexicon.com`, then
    `ssh ilexicon-host 'rm -rf ~/new.ilexicon.com'`.
 4. Search Console: verify `ilexicon.com`, submit `https://ilexicon.com/sitemap-index.xml`.
-5. Formspree → form `mdeaylaw` → Settings: turn "Restrict to domain" back on with `ilexicon.com`.
-   While it is on, submissions from any other host (including the preview) are filed as spam and
-   not emailed.
+5. Send one real enquiry from https://ilexicon.com/contact and confirm it arrives.
 
 ## Rollback
 
@@ -78,6 +76,10 @@ rm -rf public_html && tar xzf backup-public_html-<date-time>.tgz
 ## Updating the site later
 
 Edit, commit, push, then `npm run deploy:prod`.
+
+`public/contact.php` and `public/.htaccess` deploy with every `npm run deploy:prod`; the mailbox
+noreply@ilexicon.com must keep existing in cPanel. The five dropdown options in
+`src/components/ContactForm.astro` must match `INTERESTS` in `public/contact.php`.
 
 ## The deploy key
 
