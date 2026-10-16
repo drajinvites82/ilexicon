@@ -14,6 +14,8 @@
   --accent: #1F5EFF;
   --accent-ink: #FFFFFF;
   --accent-hover: #1A4FD9;
+  /* Logo only: the orange "o" and dots (public/logo.svg) */
+  --logo-orange: #F7941D;
 }
 
 @theme {
