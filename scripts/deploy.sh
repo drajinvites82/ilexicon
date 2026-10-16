@@ -42,8 +42,10 @@ if [ "$target" = prod ]; then
 fi
 rm -rf .deploy-staging && mkdir .deploy-staging
 tar xzf - -C .deploy-staging
-find "$dir" -mindepth 1 -maxdepth 1 ! -name cgi-bin ! -name .well-known -exec rm -rf {} +
-cp -a .deploy-staging/. "$dir"/
+# Overwrite in place, then remove stale files: the site is never empty mid-deploy. Keep cPanel's
+# cgi-bin, AutoSSL's .well-known, and dhiyaexports.in's docroot (it holds root-owned files).
+rsync -a --delete --exclude=/cgi-bin --exclude=/.well-known --exclude=/.website_97699493 \
+  .deploy-staging/ "$dir"/
 rm -rf .deploy-staging
 ls -la "$dir"/.htaccess "$dir"/index.html
 echo "Deployed to ~/$dir"

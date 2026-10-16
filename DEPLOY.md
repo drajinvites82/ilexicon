@@ -37,9 +37,10 @@ npm run deploy:prod
 ```
 
 It first backs up the whole of `public_html` to `~/backup-public_html-<date-time>.tgz` and prints the
-name, then replaces the contents of `public_html` with `dist/`. Only `cgi-bin` and `.well-known`
-(AutoSSL) are kept. The old site's pages and PHP scripts, and the empty `.website_97699493` folder
-used by dhiyaexports.in, are removed; they remain in the backup.
+name, then syncs `public_html` to `dist/` with rsync on the server: files are overwritten in place
+and stale ones removed afterwards, so the site is never empty mid-deploy. `cgi-bin`, `.well-known`
+(AutoSSL) and `.website_97699493` (dhiyaexports.in's document root, which holds root-owned files)
+are left alone.
 
 ## 3. After launch (Git Bash)
 
