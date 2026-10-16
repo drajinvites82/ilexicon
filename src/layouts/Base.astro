@@ -15,7 +15,9 @@ interface Props {
   noindex?: boolean;
 }
 const { title, description, current, noindex = false } = Astro.props;
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+// build.format 'file' puts .html in the pathname; canonicals use the clean URL (/services, /).
+const cleanPath = Astro.url.pathname.replace(/\.html$/, '').replace(/^\/index$/, '/');
+const canonical = Astro.site ? new URL(cleanPath, Astro.site).href : undefined;
 const ogImage = new URL('/og.png', Astro.site ?? site.url).href;
 ---
 <!doctype html>
