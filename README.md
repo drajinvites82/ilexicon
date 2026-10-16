@@ -20,12 +20,11 @@ npm run check      # astro check (types)
 - `src/layouts/Base.astro` — HTML shell: meta, skip link, Nav, Footer, scripts.
 - `src/components/` — one file per component listed in spec §10.
 - `src/scripts/` — the only client JS: `reveal.ts` (scroll reveal, nav rule, side index) and `nav.ts` (mobile sheet). `contact.ts` is added in step 5.
-- `public/staticwebapp.config.json` — Azure Static Web Apps routing: the 301s from spec §2, the 404 fallback, security headers.
-- `.github/workflows/azure-static-web-apps.yml` — build and deploy on push to `main`.
+- `public/.htaccess` — Apache config for the cPanel host: HTTPS and www → apex, the 301s from spec §2, clean URLs, the 404 page, caching and security headers.
 
 ## Deploy
 
-Azure Static Web Apps, from GitHub `main`. The workflow needs the `AZURE_STATIC_WEB_APPS_API_TOKEN` repository secret (the Static Web App's deployment token). Step-by-step instructions, the post-deploy curl checklist and the custom-domain steps are in [DEPLOY.md](DEPLOY.md).
+HostGator cPanel shared hosting (Apache), deployed over SSH from this machine. `npm run deploy:preview` publishes to `https://new.ilexicon.com`; `npm run deploy:prod` backs up and replaces the live site. Step-by-step instructions and the post-launch checks are in [DEPLOY.md](DEPLOY.md).
 
 ## Quality gates (checked on the production build)
 
