@@ -27,8 +27,10 @@ AddType application/manifest+json .webmanifest
   RewriteRule ^career\.html$                          /careers                     [R=301,L]
   RewriteRule ^blog-comment\.html$                    /                            [R=301,L]
 
-  # 3. /404 and /404.html requested directly → real 404 status with the branded page
-  RewriteCond %{THE_REQUEST} \s/404(\.html)?[\s?] [NC]
+  # 3. /404 requested directly → real 404 status with the branded page (/404.html 301s here via rule 4).
+  #    REDIRECT_STATUS is empty only on the original request, not the ErrorDocument pass.
+  RewriteCond %{ENV:REDIRECT_STATUS} ^$
+  RewriteCond %{THE_REQUEST} \s/404[\s?] [NC]
   RewriteRule ^ - [R=404,L]
 
   # 4. Any other direct *.html request → its clean URL (covers services.html → /services)
