@@ -2,5 +2,7 @@
 /** Mono uppercase label (spec §3.6). Sits 16px above the heading that follows it. */
 interface Props { as?: 'p' | 'span' | 'div'; class?: string; id?: string }
 const { as: Tag = 'p', class: cls = '', id } = Astro.props;
+// Default 16px gap, unless the caller sets its own margin (mb-0 can't override mb-4 by order).
+const margin = /(^|\s)mb-/.test(cls) ? '' : 'mb-4';
 ---
-<Tag class:list={['eyebrow mb-4', cls]} id={id}><slot /></Tag>
+<Tag class:list={['eyebrow', margin, cls]} id={id}><slot /></Tag>
