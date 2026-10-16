@@ -6,8 +6,8 @@ export const site = {
   url: 'https://ilexicon.com',
   tagline: 'Ideas to action.',
   footerDescription:
-    'IT services, software delivery and team augmentation for US businesses since 2016.',
-  foundingYear: 2016,
+    'IT services, software delivery and team augmentation for US businesses since 2017.',
+  foundingYear: 2017,
 
   /** Legal entity shown in the © line and the JSON-LD legalName. */
   legalEntity: 'Lexicon IT Ltd',
