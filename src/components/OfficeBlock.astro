@@ -1,5 +1,5 @@
 ---
-/** The one office block on the site (spec §4.2, §8.2): label, address, tel: link, ideas@ link. */
+/** The one office block on the site (spec §4.2, §8.2): label, company, address, tel: link, ideas@ link. */
 import { site } from '../content/site';
 interface Props { class?: string }
 const { class: cls = '' } = Astro.props;
@@ -7,7 +7,7 @@ const { office, phone, emails } = site;
 ---
 <address class:list={['not-italic', cls]}>
   <p class="font-medium text-ink">{office.label}</p>
-  <p>{office.street}<br />{office.city}, {office.region} {office.postalCode}</p>
+  <p>{site.legalEntity}<br />{office.street}<br />{office.city}, {office.region} {office.postalCode}</p>
   <p class="mt-2 flex flex-col items-start">
     <a href={`tel:${phone.tel}`} class="inline-block py-0.5 text-inherit hover:text-ink">{phone.display}</a>
     <a href={`mailto:${emails.ideas}`} class="inline-block py-0.5 text-accent underline underline-offset-2 hover:text-accent-hover">{emails.ideas}</a>
