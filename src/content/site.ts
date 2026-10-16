@@ -13,8 +13,8 @@ export const site = {
   /** Legal entity shown in the © line. Placeholder until confirmed. */
   legalEntity: 'iLexicon LLC',
 
-  /** Formspree form ID for the contact form (spec §8.2). Placeholder until supplied. */
-  formspreeId: 'FORMSPREE_ID',
+  /** Formspree form ID for the contact form (spec §8.2). https://formspree.io/f/mdeaylaw */
+  formspreeId: 'mdeaylaw',
 
   emails: {
     ideas: 'ideas@ilexicon.com',

@@ -40,12 +40,13 @@ if (form) {
     if (bad.length) { bad[0].input.focus(); return; }
 
     const data = new FormData(form);
-    // Honeypot: a filled "website" field means a bot. Pretend it worked and send nothing.
-    if ((data.get('website') as string)?.trim()) { showSuccess(); return; }
-    data.delete('website');
+    // Honeypot: a filled "_gotcha" field means a bot. Pretend it worked and send nothing.
+    if ((data.get('_gotcha') as string)?.trim()) { showSuccess(); return; }
+    data.delete('_gotcha');
     data.set('_subject', `iLexicon enquiry: ${data.get('interest')}`);
 
     submit.disabled = true;
+    submit.textContent = 'Sending…';
     try {
       const res = await fetch(form.dataset.endpoint || form.action, {
         method: 'POST',
@@ -58,6 +59,7 @@ if (form) {
       sendError.hidden = false;
     } finally {
       submit.disabled = false;
+      submit.textContent = 'Send';
     }
   });
 
