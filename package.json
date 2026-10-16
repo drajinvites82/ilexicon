@@ -7,7 +7,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "deploy:preview": "cd . && \"C:\\Program Files\\Git\\bin\\bash.exe\" scripts/deploy.sh preview",
+    "deploy:prod": "cd . && \"C:\\Program Files\\Git\\bin\\bash.exe\" scripts/deploy.sh prod"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
